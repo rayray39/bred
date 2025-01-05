@@ -50,7 +50,7 @@ function FillItems() {
                 <option value="3">Three</option>
             </Form.Select>
 
-            <Form.Select aria-label="select category">
+            <Form.Select aria-label="select category" style={{marginTop:'15px'}}>
                 <option>Select category</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
