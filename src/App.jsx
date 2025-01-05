@@ -1,19 +1,16 @@
 import { useState } from 'react'
 import './App.css'
+import Form from './Form'
+import { Button } from 'react-bootstrap';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [showForm, setShowForm] = useState(false);
 
-  const handleClick = () => {
-    setCount((prev) => prev + 1);
-  }
+    return <>
+        <Button variant='light' size='lg' onClick={() => setShowForm(true)}>Add Item</Button>
 
-  return (
-    <>
-      <div style={{color:'white'}}>{`this is the current count ${count}`}</div>
-      <button type="button" class="btn btn-light" onClick={handleClick}>click me</button>
+        <Form show={showForm} onHide={() => setShowForm(false)} />
     </>
-  )
 }
 
 export default App
