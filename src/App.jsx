@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Form from './Form'
+import ModalForm from './ModalForm'
 import { Button } from 'react-bootstrap';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     return <>
         <Button variant='light' size='lg' onClick={() => setShowForm(true)}>Add Item</Button>
 
-        <Form show={showForm} onHide={() => setShowForm(false)} />
+        <ModalForm show={showForm} onHide={() => setShowForm(false)} />
     </>
 }
 
