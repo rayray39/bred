@@ -10,8 +10,8 @@ function App() {
 
   return (
     <>
-      <div>{`this is the current count ${count}`}</div>
-      <button type="button" class="btn btn-dark" onClick={handleClick}>click me</button>
+      <div style={{color:'white'}}>{`this is the current count ${count}`}</div>
+      <button type="button" class="btn btn-light" onClick={handleClick}>click me</button>
     </>
   )
 }
