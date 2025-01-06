@@ -31,6 +31,7 @@ function ModalForm(props) {
 
 function FillItems({sendData}) {    // receives the onChage prop
     // form within the modal to fill up information about item added.
+    const [validated, setValidated] = useState(false)
 
     const [formData, setFormData] = useState({
         description: "",
@@ -48,6 +49,13 @@ function FillItems({sendData}) {    // receives the onChage prop
     const handleConfirm = (e) => {
         // this is called when the 'submit' button of the Form is clicked.
         e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+            setValidated(true);
+            return;
+        }
+
         console.log(`description: ${formData.description}`);
         console.log(`amount: ${formData.amount}`);
         console.log(`category: ${formData.category}`);
@@ -57,26 +65,28 @@ function FillItems({sendData}) {    // receives the onChage prop
     }
 
     return <>
-        <Form noValidate validated={validated} onSubmit={handleConfirm}>
+        <Form onSubmit={handleConfirm} noValidate validated={validated}>
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Description</Form.Label>
                 <Form.Control type="text" placeholder="Enter description" name='description' onChange={handleInputChange} required />
+                <Form.Control.Feedback type='invalid'>Please enter a description.</Form.Control.Feedback>
             </Form.Group>
 
-            <InputGroup className="mb-3">
-                <InputGroup.Text>$</InputGroup.Text>
-                <Form.Control aria-label="Amount (to the nearest dollar)" name='amount' onChange={handleInputChange} required />
-            </InputGroup>
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Amount</Form.Label>
+                <Form.Control type="text" placeholder="Enter amount" name='amount' onChange={handleInputChange} required />
+                <Form.Control.Feedback type='invalid'>Please enter the amount to 2 decimal places.</Form.Control.Feedback>
+            </Form.Group>
 
             <Form.Select style={{marginTop:'15px'}} aria-label="select module" name='module' onChange={handleInputChange} required >
-                <option>Select module</option>
+                <option value=''>Select module</option>
                 <option value="Main">Main</option>
                 <option value="Bottom Housing">Bottom Housing</option>
                 <option value="Top Housing">Top Housing</option>
             </Form.Select>
 
             <Form.Select aria-label="select category" style={{marginTop:'15px'}} name='category' onChange={handleInputChange} required >
-                <option>Select category</option>
+                <option value=''>Select category</option>
                 <option value="Hardware">Hardware</option>
                 <option value="Software">Software</option>
                 <option value="Tools">Tools</option>
