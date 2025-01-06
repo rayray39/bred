@@ -7,31 +7,9 @@ import { useState } from 'react';
 function ModalForm(props) {
     // use react-bootstrap's modal
 
-     // State to hold form data
-    const [formData, setFormData] = useState({
-        description: "",
-        amount: "",
-        module: "",
-        category: "",
-    });
-
-    // Function to update form data
-    const handleFormDataChange = (field, value) => {
-        setFormData((prevData) => ({ ...prevData, [field]: value }));
-    };
-
-    // handle confirm button click
-    const handleConfim = () => {
-        console.log(`description: ${formData.description}`)
-        console.log(`amount: ${formData.amount}`)
-        console.log(`module: ${formData.module}`)
-        console.log(`category: ${formData.category}`)
-        props.onHide();
-    }
-
     return <>
         <Modal
-            {...props}
+            show={props.show}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -43,24 +21,39 @@ function ModalForm(props) {
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <FillItems onChange={handleFormDataChange} />
+                    <FillItems sendData={props.onConfirm} />
                 </div>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant='dark' onClick={handleConfim}>Confirm</Button>
-            </Modal.Footer>
         </Modal>
     </>
 }
 
-function FillItems({onChange}) {    // receives the onChage prop
+function FillItems({sendData}) {    // receives the onChage prop
     // form within the modal to fill up information about item added.
 
-    // Update parent state when inputs change
+    const [formData, setFormData] = useState({
+        description: "",
+        amount: "",
+        module: "",
+        category: "",
+    })
+
     const handleInputChange = (e) => {
+        // updates the form data whenever values in the input changes.
         const { name, value } = e.target;
-        onChange(name, value);
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
+
+    const handleConfirm = (e) => {
+        // this is called when the 'submit' button of the Form is clicked.
+        e.preventDefault();
+        console.log(`description: ${formData.description}`);
+        console.log(`amount: ${formData.amount}`);
+        console.log(`category: ${formData.category}`);
+        console.log(`module: ${formData.module}`);
+
+        sendData(formData);     // sends the data back to App
+    }
 
     return <>
         <Form>
@@ -87,6 +80,8 @@ function FillItems({onChange}) {    // receives the onChage prop
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </Form.Select>
+
+            <Button variant='dark' type='submit' style={{marginTop:'15px'}} onClick={handleConfirm}>Confirm</Button>
         </Form>
     </>
 }

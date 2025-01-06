@@ -1,6 +1,19 @@
+import { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
 
-function MainCells() {
+function MainCells(props) {
+    const [tableData, setTableData] = useState([]);
+
+    useEffect(() => {
+        const newRow = {
+            id: tableData.length + 1,
+            ...props.data,
+        };
+
+        setTableData((prev) => [...prev, newRow]);
+
+    }, [props.data])
+
     return (
         <Table bordered hover style={{marginTop:"60px"}}>
           <thead>
@@ -13,34 +26,15 @@ function MainCells() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-                <td>1</td>  
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>100</td>
-            </tr>
-            <tr>
-                <td>2</td>   
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>200</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>300</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>100</td>
-            </tr>
+            {tableData.map((row) => (
+                <tr key={row.id}>
+                    <td>{row.id}</td>
+                    <td>{row.description}</td>
+                    <td>{row.category}</td>
+                    <td>{row.module}</td>
+                    <td>${row.amount}</td>
+                </tr>
+            ))}
           </tbody>
         </Table>
     )
