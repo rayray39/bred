@@ -46,7 +46,7 @@ function FillItems({sendData}) {    // receives the onChage prop
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleConfirm = (e) => {
+    const handleConfirm = async (e) => {
         // this is called when the 'submit' button of the Form is clicked.
         e.preventDefault();
         const form = e.currentTarget;
@@ -60,6 +60,30 @@ function FillItems({sendData}) {    // receives the onChage prop
         console.log(`amount: ${formData.amount}`);
         console.log(`category: ${formData.category}`);
         console.log(`module: ${formData.module}`);
+
+        // sent form data to table.json
+        try {
+            const response = await fetch('http://localhost:5000/save-form-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    formData
+                })
+            })
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.log(data.error);
+                alert(data.error);
+                return;
+            }
+
+            alert(data.message);
+            console.log(data.message);
+
+        } catch (error) {
+            console.error(`Error in saving form data: ${error}`);
+        }
 
         sendData(formData);     // sends the data back to App
     }
