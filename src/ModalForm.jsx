@@ -10,6 +10,7 @@ function ModalForm(props) {
     return <>
         <Modal
             show={props.show}
+            onHide={props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -56,32 +57,32 @@ function FillItems({sendData}) {    // receives the onChage prop
     }
 
     return <>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleConfirm}>
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" placeholder="Enter description" name='description' onChange={handleInputChange} />
+                <Form.Control type="text" placeholder="Enter description" name='description' onChange={handleInputChange} required />
             </Form.Group>
 
             <InputGroup className="mb-3">
                 <InputGroup.Text>$</InputGroup.Text>
-                <Form.Control aria-label="Amount (to the nearest dollar)" name='amount' onChange={handleInputChange} />
+                <Form.Control aria-label="Amount (to the nearest dollar)" name='amount' onChange={handleInputChange} required />
             </InputGroup>
 
-            <Form.Select style={{marginTop:'15px'}} aria-label="select module" name='module' onChange={handleInputChange}>
+            <Form.Select style={{marginTop:'15px'}} aria-label="select module" name='module' onChange={handleInputChange} required >
                 <option>Select module</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="Main">Main</option>
+                <option value="Bottom Housing">Bottom Housing</option>
+                <option value="Top Housing">Top Housing</option>
             </Form.Select>
 
-            <Form.Select aria-label="select category" style={{marginTop:'15px'}} name='category' onChange={handleInputChange}>
+            <Form.Select aria-label="select category" style={{marginTop:'15px'}} name='category' onChange={handleInputChange} required >
                 <option>Select category</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Tools">Tools</option>
             </Form.Select>
 
-            <Button variant='dark' type='submit' style={{marginTop:'15px'}} onClick={handleConfirm}>Confirm</Button>
+            <Button variant='dark' type='submit' style={{marginTop:'15px'}}>Confirm</Button>
         </Form>
     </>
 }

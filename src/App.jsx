@@ -18,7 +18,7 @@ function App() {
     return <>
         <Button variant='light' size='lg' onClick={() => setShowForm(true)}>Add Item</Button>
 
-        <ModalForm show={showForm} onConfirm={handleConfirm} />
+        <ModalForm show={showForm} onConfirm={handleConfirm} onHide={() => setShowForm(false)}/>
 
         <MainCells data={formData}/>
     </>

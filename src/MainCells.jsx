@@ -5,12 +5,16 @@ function MainCells(props) {
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        const newRow = {
-            id: tableData.length + 1,
-            ...props.data,
-        };
+        if (props.data && Object.keys(props.data).length > 0) {     // only if data is non empty
+            // include the id into the row of data
+            const newRow = {
+                id: tableData.length + 1,
+                ...props.data,
+            };
 
-        setTableData((prev) => [...prev, newRow]);
+            // append this row to the existing table data
+            setTableData((prev) => [...prev, newRow]);
+        }
 
     }, [props.data])
 
