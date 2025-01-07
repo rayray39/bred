@@ -55,7 +55,7 @@ app.post('/save-form-data', (req, res) => {
     const tableData = readTableData();
     const rowDataWithId = {id: tableData.length + 1, ...rowData};       // add id prop
     tableData.push(rowDataWithId);   // add formData to the existing data.
-    console.log(`saving form data: ${rowDataWithId}`);
+    console.log(`saving form data: ${JSON.stringify(rowDataWithId)}`);
     writeTableData(tableData);
 
     return res.status(200).json({ message: "Form data saved successfully!" })

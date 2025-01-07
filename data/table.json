@@ -1,9 +1,16 @@
 [
   {
     "id": 1,
-    "description": "work stuff",
-    "amount": "11.90",
-    "module": "Top Housing",
-    "category": "Tools"
+    "description": "house items",
+    "amount": "100.55",
+    "module": "Main",
+    "category": "Hardware"
+  },
+  {
+    "id": 2,
+    "description": "some other items",
+    "amount": "100.55",
+    "module": "Bottom Housing",
+    "category": "Software"
   }
 ]
