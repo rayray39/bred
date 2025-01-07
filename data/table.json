@@ -26,5 +26,26 @@
     "amount": "3.00",
     "module": "Main",
     "category": "Software"
+  },
+  {
+    "id": 5,
+    "description": "several items",
+    "amount": "5",
+    "module": "Main",
+    "category": "Tools"
+  },
+  {
+    "id": 6,
+    "description": "important items",
+    "amount": "3",
+    "module": "Main",
+    "category": "Tools"
+  },
+  {
+    "id": 7,
+    "description": "no items",
+    "amount": "0",
+    "module": "Main",
+    "category": "Software"
   }
 ]
