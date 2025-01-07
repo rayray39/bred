@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap"
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     useEffect(() => {
         // fetch stored data from table.json to display
@@ -45,6 +46,11 @@ function MainCells(props) {
 
     }, [props.data])
 
+    const handleRowClick = (index) => {
+        setSelectedRow(index);
+        console.log(`selected row: ${index}`);
+    }
+
     return (
         <Table bordered hover style={{marginTop:"60px"}}>
           <thead>
@@ -58,7 +64,7 @@ function MainCells(props) {
           </thead>
           <tbody>
             {tableData.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.id} onClick={() => handleRowClick(row.id)} >
                     <td>{row.id}</td>
                     <td>{row.description}</td>
                     <td>{row.category}</td>
