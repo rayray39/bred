@@ -68,7 +68,12 @@ app.get('/get-table-data', (req, res) => {
         return res.status(400).json({ error: 'Unable to read table data.' });
     }
 
-    return res.status(200).json({ message: 'Table data successfully returned.', tableData: tableData })
+    let totalAmount = 0;
+    tableData.forEach(data => {
+        totalAmount += Number(parseFloat(data.amount).toFixed(2));
+    });
+
+    return res.status(200).json({ message: 'Table data successfully returned.', tableData: tableData, totalAmount: totalAmount })
 })
 
 

@@ -133,7 +133,7 @@ function FillItems({sendData}) {    // receives the onChage prop
                 <option value="Tools">Tools</option>
             </Form.Select>
 
-            <Button variant='dark' type='submit' style={{marginTop:'15px'}}>Confirm</Button>
+            <Button variant='dark' type='submit' style={{marginTop:'15px', marginBottom:'15px'}}>Confirm</Button>
         </Form>
     </>
 }

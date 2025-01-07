@@ -12,5 +12,19 @@
     "amount": "100.55",
     "module": "Bottom Housing",
     "category": "Software"
+  },
+  {
+    "id": 3,
+    "description": "some supplies",
+    "amount": "0.9",
+    "module": "Bottom Housing",
+    "category": "Hardware"
+  },
+  {
+    "id": 4,
+    "description": "few other supplies",
+    "amount": "3.00",
+    "module": "Main",
+    "category": "Software"
   }
 ]

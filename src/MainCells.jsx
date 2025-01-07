@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap"
 
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
         // fetch stored data from table.json to display
@@ -20,6 +21,7 @@ function MainCells(props) {
     
                 console.log(data.message);
                 setTableData(data.tableData);   // set tableData to hold the fetched data
+                setTotalAmount(data.totalAmount)    // set totalAmount for existing data in storage
             } catch (error) {
                 console.error(`Error in fetching table data: ${error}`);
             }
@@ -38,6 +40,7 @@ function MainCells(props) {
 
             // append this row to the existing table data
             setTableData((prev) => [...prev, newRow]);
+            setTotalAmount((prev) => prev + Number(parseFloat(props.data.amount).toFixed(2)));
         }
 
     }, [props.data])
@@ -60,9 +63,13 @@ function MainCells(props) {
                     <td>{row.description}</td>
                     <td>{row.category}</td>
                     <td>{row.module}</td>
-                    <td>${row.amount}</td>
+                    <td>{row.amount}</td>
                 </tr>
             ))}
+            <tr>
+                <td colSpan={4} style={{textAlign:'right', fontWeight:'bold'}}>Total Amount (in dollars)</td>
+                <td>{totalAmount}</td>
+            </tr>
           </tbody>
         </Table>
     )
