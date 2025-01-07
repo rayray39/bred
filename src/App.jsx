@@ -1,19 +1,26 @@
 import { useState } from 'react'
 import './App.css'
+import ModalForm from './ModalForm'
+import { Button } from 'react-bootstrap';
+import MainCells from './MainCells';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [showForm, setShowForm] = useState(false);    // show modal
+    const [formData, setFormData] = useState({});       // data from the form (FillItems)
 
-  const handleClick = () => {
-    setCount((prev) => prev + 1);
-  }
+    const handleConfirm = (data) => {
+        // this is passed into FillItems, through ModalForm
+        setFormData(data);      // receives the data from FillItems.
+        setShowForm(false);     // hides the Modal
+    }
 
-  return (
-    <>
-      <div style={{color:'white'}}>{`this is the current count ${count}`}</div>
-      <button type="button" class="btn btn-light" onClick={handleClick}>click me</button>
+    return <>
+        <Button variant='light' size='lg' onClick={() => setShowForm(true)}>Add Item</Button>
+
+        <ModalForm show={showForm} onConfirm={handleConfirm} onHide={() => setShowForm(false)}/>
+
+        <MainCells data={formData}/>
     </>
-  )
 }
 
 export default App
