@@ -1,23 +1,9 @@
 [
   {
     "id": 1,
-    "description": "car supplies",
-    "amount": "200",
-    "module": "Main",
+    "description": "work stuff",
+    "amount": "11.90",
+    "module": "Top Housing",
     "category": "Tools"
-  },
-  {
-    "id": 2,
-    "description": "birthday supplies",
-    "amount": "100",
-    "module": "Main",
-    "category": "Hardware"
-  },
-  {
-    "id": 3,
-    "description": "cooking appliances",
-    "amount": "300",
-    "module": "Bottom Housing",
-    "category": "Hardware"
   }
 ]

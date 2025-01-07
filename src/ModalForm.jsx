@@ -1,7 +1,6 @@
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
-import { InputGroup } from 'react-bootstrap';
 import { useState } from 'react';
 
 function ModalForm(props) {
@@ -32,6 +31,7 @@ function ModalForm(props) {
 function FillItems({sendData}) {    // receives the onChage prop
     // form within the modal to fill up information about item added.
     const [validated, setValidated] = useState(false)
+    const [isAmountValid, setIsAmountValid] = useState(true);
 
     const [formData, setFormData] = useState({
         description: "",
@@ -46,6 +46,18 @@ function FillItems({sendData}) {    // receives the onChage prop
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    const handleAmountChange = (e) => {
+        const { value } = e.target;
+        const numericRegex = /^\d*(\.\d{0,2})?$/;
+
+        if (value === "" || numericRegex.test(value)) {
+            setFormData((prevData) => ({ ...prevData, amount: value }));
+            setIsAmountValid(true);
+        } else {
+            setIsAmountValid(false);
+        }
+    }
+
     const handleConfirm = async (e) => {
         // this is called when the 'submit' button of the Form is clicked.
         e.preventDefault();
@@ -53,6 +65,12 @@ function FillItems({sendData}) {    // receives the onChage prop
         if (form.checkValidity() === false) {
             e.stopPropagation();
             setValidated(true);
+            return;
+        }
+
+        const regex = /^\d+(\.\d{1,2})?$/;
+        if (!regex.test(formData.amount)) {
+            setIsAmountValid(false); // Show feedback if invalid
             return;
         }
 
@@ -97,7 +115,7 @@ function FillItems({sendData}) {    // receives the onChage prop
 
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Amount</Form.Label>
-                <Form.Control type="text" placeholder="Enter amount" name='amount' onChange={handleInputChange} required />
+                <Form.Control type="text" placeholder="Enter amount" name='amount' onChange={handleAmountChange} isInvalid={!isAmountValid} required />
                 <Form.Control.Feedback type='invalid'>Please enter the amount to 2 decimal places.</Form.Control.Feedback>
             </Form.Group>
 
