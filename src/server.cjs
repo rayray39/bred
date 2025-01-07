@@ -53,11 +53,22 @@ app.post('/save-form-data', (req, res) => {
     }
 
     const tableData = readTableData();
-    tableData.push(rowData);   // add formData to the existing data.
-    console.log(`saving form data: ${rowData}`);
+    const rowDataWithId = {id: tableData.length + 1, ...rowData};       // add id prop
+    tableData.push(rowDataWithId);   // add formData to the existing data.
+    console.log(`saving form data: ${rowDataWithId}`);
     writeTableData(tableData);
 
     return res.status(200).json({ message: "Form data saved successfully!" })
+})
+
+app.get('/get-table-data', (req, res) => {
+    const tableData = readTableData();
+
+    if (!tableData) {
+        return res.status(400).json({ error: 'Unable to read table data.' });
+    }
+
+    return res.status(200).json({ message: 'Table data successfully returned.', tableData: tableData })
 })
 
 

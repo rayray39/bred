@@ -78,7 +78,6 @@ function FillItems({sendData}) {    // receives the onChage prop
                 return;
             }
 
-            alert(data.message);
             console.log(data.message);
 
         } catch (error) {

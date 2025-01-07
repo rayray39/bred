@@ -5,6 +5,30 @@ function MainCells(props) {
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
+        // fetch stored data from table.json to display
+        const fetchTableData = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/get-table-data', {
+                    method: 'GET'
+                })
+    
+                const data = await response.json();
+                if (!response.ok) {
+                    console.log(data.error);
+                    alert(data.error);
+                }
+    
+                console.log(data.message);
+                setTableData(data.tableData);   // set tableData to hold the fetched data
+            } catch (error) {
+                console.error(`Error in fetching table data: ${error}`);
+            }
+        };
+        fetchTableData();
+    }, [])
+
+    useEffect(() => {
+        // appending new rows to table data
         if (props.data && Object.keys(props.data).length > 0) {     // only if data is non empty
             // include the id into the row of data
             const newRow = {
