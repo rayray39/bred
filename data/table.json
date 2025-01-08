@@ -14,13 +14,6 @@
     "category": "Software"
   },
   {
-    "id": 3,
-    "description": "some supplies",
-    "amount": "0.9",
-    "module": "Bottom Housing",
-    "category": "Hardware"
-  },
-  {
     "id": 4,
     "description": "few other supplies",
     "amount": "3.00",
@@ -33,26 +26,5 @@
     "amount": "5",
     "module": "Main",
     "category": "Tools"
-  },
-  {
-    "id": 6,
-    "description": "important items",
-    "amount": "3",
-    "module": "Main",
-    "category": "Tools"
-  },
-  {
-    "id": 7,
-    "description": "no items",
-    "amount": "0",
-    "module": "Main",
-    "category": "Software"
-  },
-  {
-    "id": 8,
-    "description": "many items",
-    "amount": "1000",
-    "module": "Bottom Housing",
-    "category": "Software"
   }
 ]

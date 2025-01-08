@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
+import { Button } from "react-bootstrap";
 
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [selectedRows, setSelectedRows] = useState(null);
+    const [selectedRows, setSelectedRows] = useState([]);
 
     // column headers for data grid
     const tableColumnHeaders = [
@@ -56,25 +57,66 @@ function MainCells(props) {
     }, [props.data])
 
     const handleRowSelection = (selectionModel) => {
+        // when a row is selected
+        // selectionModel is an array that holds the ids of the selected rows
         setSelectedRows(selectionModel);
         console.log(`selected row ids: ${selectionModel}`);
     }
 
-    return <div style={{marginTop:"40px", width: '100%'}}>
-        <DataGrid rows={tableData} columns={tableColumnHeaders}
-            disableRowSelectionOnClick 
-            checkboxSelection
-            onRowSelectionModelChange={handleRowSelection}
-            sx={{ 
-                bgcolor: 'white', 
-                '& .MuiDataGrid-cell': {
-                    color: 'black', textAlign:'center', borderRight: '1px solid rgba(224, 224, 224, 1)',
-                },
-                '& .MuiDataGrid-columnHeaderTitle': {
-                    fontWeight: 'bold',
-                    fontSize: '16px'
-                }
-            }}/>
+    const handleDeleteRow = async () => {
+        // when delete button is clicked
+        if (selectedRows.length === 0) {
+            console.log('No rows selected for deletion.')
+            return;
+        }
+
+        try {
+            // make a delete request
+            const response = await fetch('http://localhost:5000/delete-row-data', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    rowIds: selectedRows
+                })
+            })
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.log(data.error);
+                alert(data.error);
+                return;
+            }
+
+            console.log(data.message);
+            // Update the table data in the frontend
+            setTableData((prevTableData) =>
+                prevTableData.filter((row) => !selectedRows.includes(row.id))
+            );
+            setSelectedRows([]);
+        } catch (error) {
+            console.error(`Error in deleting row(s): ${error}`);
+        }
+    }
+
+    return <div>
+        <Button size="lg" variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+
+        <div style={{marginTop:"40px", width: '100%'}}>
+            <DataGrid rows={tableData} columns={tableColumnHeaders}
+                disableRowSelectionOnClick 
+                checkboxSelection
+                onRowSelectionModelChange={handleRowSelection}
+                sx={{ 
+                    bgcolor: 'white', 
+                    '& .MuiDataGrid-cell': {
+                        color: 'black', textAlign:'center', borderRight: '1px solid rgba(224, 224, 224, 1)',
+                    },
+                    '& .MuiDataGrid-columnHeaderTitle': {
+                        fontWeight: 'bold',
+                        fontSize: '16px'
+                    }
+                }}/>
+        </div>
     </div>
 }
 

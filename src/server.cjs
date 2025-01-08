@@ -37,6 +37,7 @@ const writeTableData = (data) => {
     }
 };
 
+// save a new row of data (uploaded from form) to table data
 app.post('/save-form-data', (req, res) => {
     const formData = req.body;
 
@@ -61,6 +62,7 @@ app.post('/save-form-data', (req, res) => {
     return res.status(200).json({ message: "Form data saved successfully!" })
 })
 
+// returns all the rows of data that are inside table data
 app.get('/get-table-data', (req, res) => {
     const tableData = readTableData();
 
@@ -74,6 +76,21 @@ app.get('/get-table-data', (req, res) => {
     });
 
     return res.status(200).json({ message: 'Table data successfully returned.', tableData: tableData, totalAmount: totalAmount })
+})
+
+
+app.delete('/delete-row-data', (req, res) => {
+    const rowIds = req.body;    // ids of the rows to be deleted
+    console.log(`Deleting selected rows: ${rowIds.rowIds}`);
+
+    if (!rowIds || rowIds.rowIds.length === 0) {
+        return res.status(400).json({ error: 'Missing row ids for deletion.' })
+    }
+
+    const tableData = readTableData();
+    const newTableData = tableData.filter((row) => !rowIds.rowIds.includes(row.id));
+    writeTableData(newTableData);
+    return res.status(200).json({ message: `Rows {${rowIds.rowIds}} successfully deleted from table data.` })
 })
 
 
