@@ -19,5 +19,12 @@
     "amount": "22",
     "module": "Top Housing",
     "category": "Tools"
+  },
+  {
+    "id": 4,
+    "description": "very little items",
+    "amount": "3.00",
+    "module": "Top Housing",
+    "category": "Software"
   }
 ]
