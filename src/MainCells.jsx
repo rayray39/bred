@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react"
-import { Table } from "react-bootstrap"
+import { DataGrid } from '@mui/x-data-grid';
 
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [selectedRow, setSelectedRow] = useState(null);
+
+    const tableColumnHeaders = [
+        { field: 'id', headerName: 'No.'},
+        { field: 'description', headerName: 'Description', width:500, headerAlign: 'center'},
+        { field: 'category', headerName: 'Category', width: 206, headerAlign: 'center'},
+        { field: 'module', headerName: 'Module', width: 206, headerAlign: 'center'},
+        { field: 'amount', headerName: 'Amount', width: 200, headerAlign: 'center'}
+    ]
 
     useEffect(() => {
         // fetch stored data from table.json to display
@@ -51,34 +59,19 @@ function MainCells(props) {
         console.log(`selected row: ${index}`);
     }
 
-    return (
-        <Table bordered hover style={{marginTop:"60px"}}>
-          <thead>
-            <tr>
-                <th>No.</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Module</th>
-                <th>Amount (in dollars)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((row) => (
-                <tr key={row.id} onClick={() => handleRowClick(row.id)} >
-                    <td>{row.id}</td>
-                    <td>{row.description}</td>
-                    <td>{row.category}</td>
-                    <td>{row.module}</td>
-                    <td>{row.amount}</td>
-                </tr>
-            ))}
-            <tr>
-                <td colSpan={4} style={{textAlign:'right', fontWeight:'bold'}}>Total Amount (in dollars)</td>
-                <td>{totalAmount}</td>
-            </tr>
-          </tbody>
-        </Table>
-    )
+    return <div style={{marginTop:"40px"}}>
+        <DataGrid rows={tableData} columns={tableColumnHeaders} 
+            sx={{ 
+                bgcolor: 'white', 
+                '& .MuiDataGrid-cell': {
+                    color: 'black', textAlign:'center', borderRight: '1px solid rgba(224, 224, 224, 1)',
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
+                    fontWeight: 'bold',
+                    fontSize: '16px'
+                }
+            }}/>
+    </div>
 }
 
 export default MainCells

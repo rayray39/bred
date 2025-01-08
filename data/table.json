@@ -47,5 +47,12 @@
     "amount": "0",
     "module": "Main",
     "category": "Software"
+  },
+  {
+    "id": 8,
+    "description": "many items",
+    "amount": "1000",
+    "module": "Bottom Housing",
+    "category": "Software"
   }
 ]
