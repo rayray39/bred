@@ -88,7 +88,10 @@ app.delete('/delete-row-data', (req, res) => {
     }
 
     const tableData = readTableData();
-    const newTableData = tableData.filter((row) => !rowIds.rowIds.includes(row.id));
+    const newTableData = tableData
+        .filter((row) => !rowIds.rowIds.includes(row.id))   // filter out rows that are not selected for deletion
+        .map((row, index) => ({ ...row, id: index + 1 }));  // map each row to the updated id
+
     writeTableData(newTableData);
     return res.status(200).json({ message: `Rows {${rowIds.rowIds}} successfully deleted from table data.` })
 })

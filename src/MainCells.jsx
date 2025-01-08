@@ -90,9 +90,12 @@ function MainCells(props) {
             console.log(data.message);
             // Update the table data in the frontend
             setTableData((prevTableData) =>
-                prevTableData.filter((row) => !selectedRows.includes(row.id))
+                prevTableData
+                    .filter((row) => !selectedRows.includes(row.id))
+                    .map((row, index) => ({...row, id: index + 1}))
             );
             setSelectedRows([]);
+            alert(`Rows have been successfully deleted: ${selectedRows}`);
         } catch (error) {
             console.error(`Error in deleting row(s): ${error}`);
         }
