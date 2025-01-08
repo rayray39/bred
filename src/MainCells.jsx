@@ -107,9 +107,11 @@ function MainCells(props) {
     }
 
     return <div>
-        <Button size="lg" variant="light" onClick={handleAddItem}>Add Item</Button>
+        <div style={{display: 'flex', flexDirection: 'column', width:'200px'}}>
+            <Button variant="light" style={{marginBottom:'20px'}} onClick={handleAddItem}>Add Item</Button>
 
-        <Button size="lg" variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+            <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+        </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
             <DataGrid rows={tableData} columns={tableColumnHeaders}
