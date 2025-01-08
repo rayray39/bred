@@ -14,12 +14,14 @@ function App() {
         setShowForm(false);     // hides the Modal
     }
 
-    return <>
-        <Button variant='light' size='lg' onClick={() => setShowForm(true)}>Add Item</Button>
+    const handleAddItem = () => {
+        setShowForm(true);
+    }
 
+    return <>
         <ModalForm show={showForm} onConfirm={handleConfirm} onHide={() => setShowForm(false)}/>
 
-        <MainCells data={formData}/>
+        <MainCells data={formData} displayForm={handleAddItem}/>
     </>
 }
 
