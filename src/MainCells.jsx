@@ -4,14 +4,15 @@ import { DataGrid } from '@mui/x-data-grid';
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [selectedRow, setSelectedRow] = useState(null);
+    const [selectedRows, setSelectedRows] = useState(null);
 
+    // column headers for data grid
     const tableColumnHeaders = [
-        { field: 'id', headerName: 'No.'},
-        { field: 'description', headerName: 'Description', width:500, headerAlign: 'center'},
-        { field: 'category', headerName: 'Category', width: 206, headerAlign: 'center'},
-        { field: 'module', headerName: 'Module', width: 206, headerAlign: 'center'},
-        { field: 'amount', headerName: 'Amount', width: 200, headerAlign: 'center'}
+        { field: 'id', headerName: 'No.', flex: 1},
+        { field: 'description', headerName: 'Description', headerAlign: 'center', flex: 3},
+        { field: 'category', headerName: 'Category', headerAlign: 'center', flex: 2},
+        { field: 'module', headerName: 'Module', headerAlign: 'center', flex: 2},
+        { field: 'amount', headerName: 'Amount', headerAlign: 'center', flex: 1}
     ]
 
     useEffect(() => {
@@ -54,13 +55,16 @@ function MainCells(props) {
 
     }, [props.data])
 
-    const handleRowClick = (index) => {
-        setSelectedRow(index);
-        console.log(`selected row: ${index}`);
+    const handleRowSelection = (selectionModel) => {
+        setSelectedRows(selectionModel);
+        console.log(`selected row ids: ${selectionModel}`);
     }
 
-    return <div style={{marginTop:"40px"}}>
-        <DataGrid rows={tableData} columns={tableColumnHeaders} 
+    return <div style={{marginTop:"40px", width: '100%'}}>
+        <DataGrid rows={tableData} columns={tableColumnHeaders}
+            disableRowSelectionOnClick 
+            checkboxSelection
+            onRowSelectionModelChange={handleRowSelection}
             sx={{ 
                 bgcolor: 'white', 
                 '& .MuiDataGrid-cell': {
