@@ -101,7 +101,14 @@ function MainCells(props) {
         }
     }
 
+    const handleAddItem = () => {
+        // displays the FillItems form from ModalForm
+        props.displayForm();
+    }
+
     return <div>
+        <Button size="lg" variant="light" onClick={handleAddItem}>Add Item</Button>
+
         <Button size="lg" variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
 
         <div style={{marginTop:"40px", width: '100%'}}>

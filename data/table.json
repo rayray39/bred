@@ -26,5 +26,12 @@
     "amount": "100",
     "module": "Main",
     "category": "Hardware"
+  },
+  {
+    "id": 5,
+    "description": "a lot of items",
+    "amount": "1",
+    "module": "Top Housing",
+    "category": "Hardware"
   }
 ]
