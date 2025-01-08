@@ -1,3 +1,12 @@
 body {
   background-color: black;
 }
+
+#total-amount {
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    margin-top: 20px;
+    padding: 14px;
+    letter-spacing: 2px;
+}

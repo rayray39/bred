@@ -1,37 +1,23 @@
 [
   {
     "id": 1,
-    "description": "some other items",
-    "amount": "100",
-    "module": "Bottom Housing",
-    "category": "Software"
+    "description": "many items",
+    "amount": "200",
+    "module": "Main",
+    "category": "Hardware"
   },
   {
     "id": 2,
     "description": "several items",
-    "amount": "5",
-    "module": "Main",
-    "category": "Tools"
+    "amount": "100",
+    "module": "Top Housing",
+    "category": "Hardware"
   },
   {
     "id": 3,
     "description": "many items",
-    "amount": "300",
-    "module": "Main",
-    "category": "Software"
-  },
-  {
-    "id": 4,
-    "description": "heavy items",
-    "amount": "100",
-    "module": "Main",
-    "category": "Hardware"
-  },
-  {
-    "id": 5,
-    "description": "a lot of items",
-    "amount": "1",
+    "amount": "22",
     "module": "Top Housing",
-    "category": "Hardware"
+    "category": "Tools"
   }
 ]

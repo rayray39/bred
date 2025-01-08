@@ -63,6 +63,17 @@ function MainCells(props) {
         console.log(`selected row ids: ${selectionModel}`);
     }
 
+    const computeDeletedAmount = (selectedRows) => {
+        let total = 0;
+        tableData.forEach(data => {
+            if (selectedRows.includes(data.id)) {
+                total += Number(parseFloat(data.amount).toFixed(2));
+            }
+        });
+        console.log(`amount to be deleted: ${total}`);
+        return total;
+    }
+
     const handleDeleteRow = async () => {
         // when delete button is clicked
         if (selectedRows.length === 0) {
@@ -94,6 +105,7 @@ function MainCells(props) {
                     .filter((row) => !selectedRows.includes(row.id))
                     .map((row, index) => ({...row, id: index + 1}))
             );
+            setTotalAmount((prev) => prev - computeDeletedAmount(selectedRows));
             setSelectedRows([]);
             alert(`Rows have been successfully deleted: ${selectedRows}`);
         } catch (error) {
@@ -128,6 +140,10 @@ function MainCells(props) {
                         fontSize: '16px'
                     }
                 }}/>
+        </div>
+
+        <div id="total-amount">
+            {`Total Amount: $${totalAmount}`}
         </div>
     </div>
 }
