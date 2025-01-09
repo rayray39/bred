@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "react-bootstrap";
 import Modules from "./Modules";
+import Categories from "./Categories";
 
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
@@ -127,6 +128,8 @@ function MainCells(props) {
             <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
 
             <Modules />
+
+            <Categories/>
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
