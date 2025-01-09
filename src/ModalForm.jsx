@@ -47,6 +47,7 @@ function FillItems({sendData}) {    // receives the onChage prop
     };
 
     const handleAmountChange = (e) => {
+        // updates form data for 'amount' form field
         const { value } = e.target;
         const numericRegex = /^\d*(\.\d{0,2})?$/;
 
@@ -56,6 +57,14 @@ function FillItems({sendData}) {    // receives the onChage prop
         } else {
             setIsAmountValid(false);
         }
+    }
+
+    const handleAmountBlur = () => {
+        // when the 'amount' field in the form is out of focus (blur)
+        setFormData((prevData) => ({
+            ...prevData,
+            amount: prevData.amount ? parseFloat(prevData.amount).toFixed(2) : "",
+        }));
     }
 
     const handleConfirm = async (e) => {
@@ -115,7 +124,7 @@ function FillItems({sendData}) {    // receives the onChage prop
 
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Amount</Form.Label>
-                <Form.Control type="text" placeholder="Enter amount" name='amount' onChange={handleAmountChange} isInvalid={!isAmountValid} required />
+                <Form.Control type="text" placeholder="Enter amount" name='amount' onChange={handleAmountChange} onBlur={handleAmountBlur} isInvalid={!isAmountValid} required />
                 <Form.Control.Feedback type='invalid'>Please enter the amount to 2 decimal places.</Form.Control.Feedback>
             </Form.Group>
 
