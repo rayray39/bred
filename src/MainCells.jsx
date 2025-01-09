@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "react-bootstrap";
+import Modules from "./Modules";
 
 function MainCells(props) {
     const [tableData, setTableData] = useState([]);
@@ -121,9 +122,11 @@ function MainCells(props) {
 
     return <div>
         <div style={{display: 'flex', flexDirection: 'column', width:'200px'}}>
-            <Button variant="light" style={{marginBottom:'20px'}} onClick={handleAddItem}>Add Item</Button>
+            <Button variant="light" style={{marginBottom:'16px'}} onClick={handleAddItem}>Add Item</Button>
 
             <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+
+            <Modules />
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
