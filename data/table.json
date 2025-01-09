@@ -15,9 +15,9 @@
   },
   {
     "id": 3,
-    "description": "almost no items",
+    "description": "other items",
     "amount": "0.90",
-    "module": "Bottom Housing",
-    "category": "Tools"
+    "module": "Top Housing",
+    "category": "Software"
   }
 ]

@@ -32,7 +32,7 @@ function MainCells(props) {
     
                 console.log(data.message);
                 setTableData(data.tableData);   // set tableData to hold the fetched data
-                setTotalAmount(data.totalAmount)    // set totalAmount for existing data in storage
+                setTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))    // set totalAmount for existing data in storage
             } catch (error) {
                 console.error(`Error in fetching table data: ${error}`);
             }
@@ -51,7 +51,7 @@ function MainCells(props) {
 
             // append this row to the existing table data
             setTableData((prev) => [...prev, newRow]);
-            setTotalAmount((prev) => prev + Number(parseFloat(props.data.amount).toFixed(2)));
+            setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
         }
 
     }, [props.data])
@@ -64,14 +64,15 @@ function MainCells(props) {
     }
 
     const computeDeletedAmount = (selectedRows) => {
+        // compute total amount from deleted rows
         let total = 0;
         tableData.forEach(data => {
             if (selectedRows.includes(data.id)) {
-                total += Number(parseFloat(data.amount).toFixed(2));
+                total += parseFloat(data.amount);
             }
         });
         console.log(`amount to be deleted: ${total}`);
-        return total;
+        return Number(total.toFixed(2));
     }
 
     const handleDeleteRow = async () => {
@@ -105,7 +106,7 @@ function MainCells(props) {
                     .filter((row) => !selectedRows.includes(row.id))
                     .map((row, index) => ({...row, id: index + 1}))
             );
-            setTotalAmount((prev) => prev - computeDeletedAmount(selectedRows));
+            setTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
             setSelectedRows([]);
             alert(`Rows have been successfully deleted: ${selectedRows}`);
         } catch (error) {
@@ -143,7 +144,7 @@ function MainCells(props) {
         </div>
 
         <div id="total-amount">
-            {`Total Amount: $${totalAmount}`}
+            {`Total Amount: $${totalAmount.toFixed(2)}`}
         </div>
     </div>
 }
