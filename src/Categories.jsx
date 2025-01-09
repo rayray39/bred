@@ -20,14 +20,14 @@ const MenuProps = {
   },
 };
 
-export default function Categories() {
+export default function Categories({handleSelectedCategories}) {
   const theme = useTheme();
   const [categoryName, setCategoryName] = React.useState([]);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+    const value = event.target.value;
+    console.log(`selected categories (Categories.jsx): ${value}`);
+    handleSelectedCategories(value);
     setCategoryName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

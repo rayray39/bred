@@ -62,7 +62,7 @@ function MainCells(props) {
     }, [props.data])
 
     const handleSelectedModules = (selectedModules) => {
-        // selectedModules is an array containing the modules selected eg. [Hardware, Software]
+        // selectedModules is an array containing the modules selected eg. [Main Housing, Top Housing]
         console.log(`selected modules (MainCells.jsx): ${selectedModules}`);
         if (selectedModules.length === 0) {
             setTableData(originalTableData);
@@ -71,6 +71,18 @@ function MainCells(props) {
         const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
         console.log(modulesSelectedTableData);
         setTableData(modulesSelectedTableData);
+    }
+
+    const handleSelectedCategories = (selectedCategories) => {
+        // selectedCategories is an array containing the categories selected eg. [Hardware, Software]
+        console.log(`selected categories (MainCells.jsx): ${selectedCategories}`);
+        if (selectedCategories.length === 0) {
+            setTableData(originalTableData);
+            return;
+        }
+        const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
+        console.log(categoriesSelectedTableData);
+        setTableData(categoriesSelectedTableData);
     }
 
     const handleRowSelection = (selectionModel) => {
@@ -149,7 +161,7 @@ function MainCells(props) {
 
             <Modules handleSelectedModules={handleSelectedModules}/>
 
-            <Categories />
+            <Categories handleSelectedCategories={handleSelectedCategories} />
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
