@@ -1,4 +1,4 @@
 
-export const MODULES = ['Hardware', 'Software', 'Tools'];
+export const CATEGORIES = ['Hardware', 'Software', 'Tools'];
 
-export const CATEGORIES = ['Main Housing', 'Top Housing', 'Bottom Housing']
+export const MODULES = ['Main Housing', 'Top Housing', 'Bottom Housing']

@@ -20,16 +20,17 @@ const MenuProps = {
   },
 };
 
-export default function Modules() {
+export default function Modules({handleSelectedModules}) {
   const theme = useTheme();
   const [moduleName, setModuleName] = React.useState([]);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+    const value = event.target.value;   // value is always an array
+    console.log(`selected modules (Modules.jsx): ${value}`);
+    handleSelectedModules(value);
     setModuleName(
       // On autofill we get a stringified value.
+      // in the event that value is not an array (a string), split it to get an array.
       typeof value === 'string' ? value.split(',') : value,
     );
   };

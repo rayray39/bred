@@ -5,7 +5,8 @@ import Modules from "./Modules";
 import Categories from "./Categories";
 
 function MainCells(props) {
-    const [tableData, setTableData] = useState([]);
+    const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
+    const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)
     const [totalAmount, setTotalAmount] = useState(0);
     const [selectedRows, setSelectedRows] = useState([]);
 
@@ -18,7 +19,7 @@ function MainCells(props) {
         { field: 'amount', headerName: 'Amount', headerAlign: 'center', flex: 1}
     ]
 
-    useEffect(() => {
+    useEffect(() => {   // empty dependency array means it only runs once on initial render
         // fetch stored data from table.json to display
         const fetchTableData = async () => {
             try {
@@ -33,6 +34,7 @@ function MainCells(props) {
                 }
     
                 console.log(data.message);
+                setOriginalTableData(data.tableData);
                 setTableData(data.tableData);   // set tableData to hold the fetched data
                 setTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))    // set totalAmount for existing data in storage
             } catch (error) {
@@ -42,7 +44,7 @@ function MainCells(props) {
         fetchTableData();
     }, [])
 
-    useEffect(() => {
+    useEffect(() => {   // runs everytime props.data changes (receives new row data)
         // appending new rows to table data
         if (props.data && Object.keys(props.data).length > 0) {     // only if data is non empty
             // include the id into the row of data
@@ -52,11 +54,24 @@ function MainCells(props) {
             };
 
             // append this row to the existing table data
+            setOriginalTableData((prev) => [...prev, newRow]);
             setTableData((prev) => [...prev, newRow]);
             setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
         }
 
     }, [props.data])
+
+    const handleSelectedModules = (selectedModules) => {
+        // selectedModules is an array containing the modules selected eg. [Hardware, Software]
+        console.log(`selected modules (MainCells.jsx): ${selectedModules}`);
+        if (selectedModules.length === 0) {
+            setTableData(originalTableData);
+            return;
+        }
+        const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
+        console.log(modulesSelectedTableData);
+        setTableData(modulesSelectedTableData);
+    }
 
     const handleRowSelection = (selectionModel) => {
         // when a row is selected
@@ -103,6 +118,11 @@ function MainCells(props) {
 
             console.log(data.message);
             // Update the table data in the frontend
+            setOriginalTableData((prevTableData) =>
+                prevTableData
+                    .filter((row) => !selectedRows.includes(row.id))
+                    .map((row, index) => ({...row, id: index + 1}))
+            )
             setTableData((prevTableData) =>
                 prevTableData
                     .filter((row) => !selectedRows.includes(row.id))
@@ -127,9 +147,9 @@ function MainCells(props) {
 
             <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
 
-            <Modules />
+            <Modules handleSelectedModules={handleSelectedModules}/>
 
-            <Categories/>
+            <Categories />
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
