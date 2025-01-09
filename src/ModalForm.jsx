@@ -2,6 +2,7 @@ import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { MODULES, CATEGORIES } from './Constants';
 
 function ModalForm(props) {
     // use react-bootstrap's modal
@@ -130,16 +131,16 @@ function FillItems({sendData}) {    // receives the onChage prop
 
             <Form.Select style={{marginTop:'15px'}} aria-label="select module" name='module' onChange={handleInputChange} required >
                 <option value=''>Select module</option>
-                <option value="Main">Main</option>
-                <option value="Bottom Housing">Bottom Housing</option>
-                <option value="Top Housing">Top Housing</option>
+                {
+                    MODULES.map((module, index) => <option key={index} value={module}>{module}</option>)
+                }
             </Form.Select>
 
             <Form.Select aria-label="select category" style={{marginTop:'15px'}} name='category' onChange={handleInputChange} required >
                 <option value=''>Select category</option>
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Tools">Tools</option>
+                {
+                    CATEGORIES.map((category, index) => <option key={index} value={category}>{category}</option>)
+                }
             </Form.Select>
 
             <Button variant='dark' type='submit' style={{marginTop:'15px', marginBottom:'15px'}}>Confirm</Button>

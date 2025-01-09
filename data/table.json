@@ -1,23 +1,23 @@
 [
   {
     "id": 1,
-    "description": "very little items",
-    "amount": "3.00",
-    "module": "Top Housing",
-    "category": "Software"
-  },
-  {
-    "id": 2,
     "description": "loads of items",
     "amount": "5.00",
     "module": "Bottom Housing",
     "category": "Software"
   },
   {
-    "id": 3,
+    "id": 2,
     "description": "other items",
     "amount": "0.90",
     "module": "Top Housing",
     "category": "Software"
+  },
+  {
+    "id": 3,
+    "description": "important stuff",
+    "amount": "0.20",
+    "module": "Software",
+    "category": "Bottom Housing"
   }
 ]
