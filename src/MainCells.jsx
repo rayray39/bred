@@ -7,7 +7,8 @@ import Categories from "./Categories";
 function MainCells(props) {
     const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
     const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)
-    const [totalAmount, setTotalAmount] = useState(0);
+    const [originalTotalAmount, setOriginalTotalAmount] = useState(0);  // original total amount
+    const [totalAmount, setTotalAmount] = useState(0);                  // total amount for filtering operations.
     const [selectedRows, setSelectedRows] = useState([]);
 
     // column headers for data grid
@@ -36,7 +37,9 @@ function MainCells(props) {
                 console.log(data.message);
                 setOriginalTableData(data.tableData);
                 setTableData(data.tableData);   // set tableData to hold the fetched data
+
                 setTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))    // set totalAmount for existing data in storage
+                setOriginalTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))
             } catch (error) {
                 console.error(`Error in fetching table data: ${error}`);
             }
@@ -58,6 +61,7 @@ function MainCells(props) {
             setTableData((prev) => [...prev, newRow]);
             // add new row amount to total amount
             setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
+            setOriginalTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
         }
 
     }, [props.data])
@@ -67,15 +71,17 @@ function MainCells(props) {
         console.log(`selected modules (MainCells.jsx): ${selectedModules}`);
         if (selectedModules.length === 0) {
             setTableData(originalTableData);
+            setTotalAmount(originalTotalAmount);
             return;
         }
         const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
         console.log(modulesSelectedTableData);
-        
+
         const modulesTotalAmount = computeTotalAmountFromFilteredData(modulesSelectedTableData);
         console.log(`total amount from filtered modules: ${modulesTotalAmount}`);
         
         setTableData(modulesSelectedTableData);
+        setTotalAmount(modulesTotalAmount);
     }
 
     const handleSelectedCategories = (selectedCategories) => {
@@ -83,6 +89,7 @@ function MainCells(props) {
         console.log(`selected categories (MainCells.jsx): ${selectedCategories}`);
         if (selectedCategories.length === 0) {
             setTableData(originalTableData);
+            setTotalAmount(originalTotalAmount);
             return;
         }
         const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
@@ -92,6 +99,7 @@ function MainCells(props) {
         console.log(`total amount from filtered categories: ${categoriesTotalAmount}`);
 
         setTableData(categoriesSelectedTableData);
+        setTotalAmount(categoriesTotalAmount);
     }
 
     const computeTotalAmountFromFilteredData = (filteredData) => {
@@ -158,8 +166,11 @@ function MainCells(props) {
                     .filter((row) => !selectedRows.includes(row.id))
                     .map((row, index) => ({...row, id: index + 1}))
             );
+
             // subtract deleted row amounts from total amount
             setTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
+            setOriginalTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
+
             setSelectedRows([]);
             alert(`Rows have been successfully deleted: ${selectedRows}`);
         } catch (error) {
