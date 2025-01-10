@@ -56,6 +56,7 @@ function MainCells(props) {
             // append this row to the existing table data
             setOriginalTableData((prev) => [...prev, newRow]);
             setTableData((prev) => [...prev, newRow]);
+            // add new row amount to total amount
             setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
         }
 
@@ -69,6 +70,8 @@ function MainCells(props) {
             return;
         }
         const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
+        const modulesTotalAmount = computeTotalAmountFromFilteredData(modulesSelectedTableData);
+        console.log(`total amount from filtered modules: ${modulesTotalAmount}`);
         console.log(modulesSelectedTableData);
         setTableData(modulesSelectedTableData);
     }
@@ -81,8 +84,18 @@ function MainCells(props) {
             return;
         }
         const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
+        const categoriesTotalAmount = computeTotalAmountFromFilteredData(categoriesSelectedTableData);
+        console.log(`total amount from filtered categories: ${categoriesTotalAmount}`);
         console.log(categoriesSelectedTableData);
         setTableData(categoriesSelectedTableData);
+    }
+
+    const computeTotalAmountFromFilteredData = (filteredData) => {
+        let total = 0;
+        filteredData.forEach(data => {
+            total += parseFloat(data.amount);
+        });
+        return Number(total.toFixed(2));
     }
 
     const handleRowSelection = (selectionModel) => {
@@ -140,6 +153,7 @@ function MainCells(props) {
                     .filter((row) => !selectedRows.includes(row.id))
                     .map((row, index) => ({...row, id: index + 1}))
             );
+            // subtract deleted row amounts from total amount
             setTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
             setSelectedRows([]);
             alert(`Rows have been successfully deleted: ${selectedRows}`);

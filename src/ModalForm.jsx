@@ -69,7 +69,7 @@ function FillItems({sendData}) {    // receives the onChage prop
     }
 
     const handleConfirm = async (e) => {
-        // this is called when the 'submit' button of the Form is clicked.
+        // this is called when the 'confirm' button of the Form is clicked.
         e.preventDefault();
         const form = e.currentTarget;
         if (form.checkValidity() === false) {

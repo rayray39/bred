@@ -78,7 +78,7 @@ app.get('/get-table-data', (req, res) => {
     return res.status(200).json({ message: 'Table data successfully returned.', tableData: tableData, totalAmount: totalAmount })
 })
 
-
+// delete all data that has been selected for deletion
 app.delete('/delete-row-data', (req, res) => {
     const rowIds = req.body;    // ids of the rows to be deleted
     console.log(`Deleting selected rows: ${rowIds.rowIds}`);
