@@ -70,9 +70,11 @@ function MainCells(props) {
             return;
         }
         const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
+        console.log(modulesSelectedTableData);
+        
         const modulesTotalAmount = computeTotalAmountFromFilteredData(modulesSelectedTableData);
         console.log(`total amount from filtered modules: ${modulesTotalAmount}`);
-        console.log(modulesSelectedTableData);
+        
         setTableData(modulesSelectedTableData);
     }
 
@@ -84,13 +86,16 @@ function MainCells(props) {
             return;
         }
         const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
+        console.log(categoriesSelectedTableData);
+        
         const categoriesTotalAmount = computeTotalAmountFromFilteredData(categoriesSelectedTableData);
         console.log(`total amount from filtered categories: ${categoriesTotalAmount}`);
-        console.log(categoriesSelectedTableData);
+
         setTableData(categoriesSelectedTableData);
     }
 
     const computeTotalAmountFromFilteredData = (filteredData) => {
+        // compute the total amount of the filtered data (selected modules or categories)
         let total = 0;
         filteredData.forEach(data => {
             total += parseFloat(data.amount);
