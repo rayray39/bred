@@ -19,5 +19,19 @@
     "amount": "0.50",
     "module": "Bottom Housing",
     "category": "Tools"
+  },
+  {
+    "id": 4,
+    "description": "something else",
+    "amount": "0.60",
+    "module": "Main Housing",
+    "category": "Software"
+  },
+  {
+    "id": 5,
+    "description": "nothing else",
+    "amount": "1.10",
+    "module": "Bottom Housing",
+    "category": "Tools"
   }
 ]

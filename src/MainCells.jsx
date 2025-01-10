@@ -7,9 +7,12 @@ import Categories from "./Categories";
 function MainCells(props) {
     const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
     const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)
+
     const [originalTotalAmount, setOriginalTotalAmount] = useState(0);  // original total amount
     const [totalAmount, setTotalAmount] = useState(0);                  // total amount for filtering operations.
+
     const [selectedRows, setSelectedRows] = useState([]);
+    const [dataIsFiltered, setDataIsFiltered] = useState(false);
 
     // column headers for data grid
     const tableColumnHeaders = [
@@ -72,6 +75,7 @@ function MainCells(props) {
         if (selectedModules.length === 0) {
             setTableData(originalTableData);
             setTotalAmount(originalTotalAmount);
+            setDataIsFiltered(false);
             return;
         }
         const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
@@ -82,6 +86,7 @@ function MainCells(props) {
         
         setTableData(modulesSelectedTableData);
         setTotalAmount(modulesTotalAmount);
+        setDataIsFiltered(true);
     }
 
     const handleSelectedCategories = (selectedCategories) => {
@@ -90,6 +95,7 @@ function MainCells(props) {
         if (selectedCategories.length === 0) {
             setTableData(originalTableData);
             setTotalAmount(originalTotalAmount);
+            setDataIsFiltered(false);
             return;
         }
         const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
@@ -100,6 +106,7 @@ function MainCells(props) {
 
         setTableData(categoriesSelectedTableData);
         setTotalAmount(categoriesTotalAmount);
+        setDataIsFiltered(true);
     }
 
     const computeTotalAmountFromFilteredData = (filteredData) => {
@@ -185,9 +192,9 @@ function MainCells(props) {
 
     return <div>
         <div style={{display: 'flex', flexDirection: 'column', width:'200px'}}>
-            <Button variant="light" style={{marginBottom:'16px'}} onClick={handleAddItem}>Add Item</Button>
+            <Button variant="light" style={{marginBottom:'16px'}} onClick={handleAddItem} disabled={dataIsFiltered}>Add Item</Button>
 
-            <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+            <Button variant="light" onClick={handleDeleteRow} disabled={dataIsFiltered}>Delete Item(s)</Button>
 
             <Modules handleSelectedModules={handleSelectedModules}/>
 
