@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "react-bootstrap";
+import Modules from "./Modules";
+import Categories from "./Categories";
 
 function MainCells(props) {
-    const [tableData, setTableData] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
+    const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
+    const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)
+
+    const [originalTotalAmount, setOriginalTotalAmount] = useState(0);  // original total amount
+    const [totalAmount, setTotalAmount] = useState(0);                  // total amount for filtering operations.
+
     const [selectedRows, setSelectedRows] = useState([]);
+    const [dataIsFiltered, setDataIsFiltered] = useState(false);
 
     // column headers for data grid
     const tableColumnHeaders = [
@@ -16,7 +23,7 @@ function MainCells(props) {
         { field: 'amount', headerName: 'Amount', headerAlign: 'center', flex: 1}
     ]
 
-    useEffect(() => {
+    useEffect(() => {   // empty dependency array means it only runs once on initial render
         // fetch stored data from table.json to display
         const fetchTableData = async () => {
             try {
@@ -31,8 +38,11 @@ function MainCells(props) {
                 }
     
                 console.log(data.message);
+                setOriginalTableData(data.tableData);
                 setTableData(data.tableData);   // set tableData to hold the fetched data
+
                 setTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))    // set totalAmount for existing data in storage
+                setOriginalTotalAmount(Number(parseFloat(data.totalAmount).toFixed(2)))
             } catch (error) {
                 console.error(`Error in fetching table data: ${error}`);
             }
@@ -40,7 +50,7 @@ function MainCells(props) {
         fetchTableData();
     }, [])
 
-    useEffect(() => {
+    useEffect(() => {   // runs everytime props.data changes (receives new row data)
         // appending new rows to table data
         if (props.data && Object.keys(props.data).length > 0) {     // only if data is non empty
             // include the id into the row of data
@@ -50,11 +60,63 @@ function MainCells(props) {
             };
 
             // append this row to the existing table data
+            setOriginalTableData((prev) => [...prev, newRow]);
             setTableData((prev) => [...prev, newRow]);
+            // add new row amount to total amount
             setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
+            setOriginalTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
         }
 
     }, [props.data])
+
+    const handleSelectedModules = (selectedModules) => {
+        // selectedModules is an array containing the modules selected eg. [Main Housing, Top Housing]
+        console.log(`selected modules (MainCells.jsx): ${selectedModules}`);
+        if (selectedModules.length === 0) {
+            setTableData(originalTableData);
+            setTotalAmount(originalTotalAmount);
+            setDataIsFiltered(false);
+            return;
+        }
+        const modulesSelectedTableData = originalTableData.filter((data) => selectedModules.includes(data.module));
+        console.log(modulesSelectedTableData);
+
+        const modulesTotalAmount = computeTotalAmountFromFilteredData(modulesSelectedTableData);
+        console.log(`total amount from filtered modules: ${modulesTotalAmount}`);
+        
+        setTableData(modulesSelectedTableData);
+        setTotalAmount(modulesTotalAmount);
+        setDataIsFiltered(true);
+    }
+
+    const handleSelectedCategories = (selectedCategories) => {
+        // selectedCategories is an array containing the categories selected eg. [Hardware, Software]
+        console.log(`selected categories (MainCells.jsx): ${selectedCategories}`);
+        if (selectedCategories.length === 0) {
+            setTableData(originalTableData);
+            setTotalAmount(originalTotalAmount);
+            setDataIsFiltered(false);
+            return;
+        }
+        const categoriesSelectedTableData = originalTableData.filter((data) => selectedCategories.includes(data.category));
+        console.log(categoriesSelectedTableData);
+        
+        const categoriesTotalAmount = computeTotalAmountFromFilteredData(categoriesSelectedTableData);
+        console.log(`total amount from filtered categories: ${categoriesTotalAmount}`);
+
+        setTableData(categoriesSelectedTableData);
+        setTotalAmount(categoriesTotalAmount);
+        setDataIsFiltered(true);
+    }
+
+    const computeTotalAmountFromFilteredData = (filteredData) => {
+        // compute the total amount of the filtered data (selected modules or categories)
+        let total = 0;
+        filteredData.forEach(data => {
+            total += parseFloat(data.amount);
+        });
+        return Number(total.toFixed(2));
+    }
 
     const handleRowSelection = (selectionModel) => {
         // when a row is selected
@@ -101,12 +163,21 @@ function MainCells(props) {
 
             console.log(data.message);
             // Update the table data in the frontend
+            setOriginalTableData((prevTableData) =>
+                prevTableData
+                    .filter((row) => !selectedRows.includes(row.id))
+                    .map((row, index) => ({...row, id: index + 1}))
+            )
             setTableData((prevTableData) =>
                 prevTableData
                     .filter((row) => !selectedRows.includes(row.id))
                     .map((row, index) => ({...row, id: index + 1}))
             );
+
+            // subtract deleted row amounts from total amount
             setTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
+            setOriginalTotalAmount((prev) => Number((prev - computeDeletedAmount(selectedRows)).toFixed(2)));
+
             setSelectedRows([]);
             alert(`Rows have been successfully deleted: ${selectedRows}`);
         } catch (error) {
@@ -121,9 +192,13 @@ function MainCells(props) {
 
     return <div>
         <div style={{display: 'flex', flexDirection: 'column', width:'200px'}}>
-            <Button variant="light" style={{marginBottom:'20px'}} onClick={handleAddItem}>Add Item</Button>
+            <Button variant="light" style={{marginBottom:'16px'}} onClick={handleAddItem} disabled={dataIsFiltered}>Add Item</Button>
 
-            <Button variant="light" onClick={handleDeleteRow}>Delete Item(s)</Button>
+            <Button variant="light" onClick={handleDeleteRow} disabled={dataIsFiltered}>Delete Item(s)</Button>
+
+            <Modules handleSelectedModules={handleSelectedModules}/>
+
+            <Categories handleSelectedCategories={handleSelectedCategories} />
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
