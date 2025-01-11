@@ -48,7 +48,8 @@ app.post('/save-form-data', (req, res) => {
     if (!rowData.description ||
         !rowData.amount ||
         !rowData.module ||
-        !rowData.category
+        !rowData.category ||
+        !rowData.date
     ) {
         return res.status(400).json({ error: 'Missing form data property.' });
     }

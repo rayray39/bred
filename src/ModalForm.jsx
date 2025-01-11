@@ -3,6 +3,10 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { MODULES, CATEGORIES } from './Constants';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'; // MUI DatePicker
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TextField } from '@mui/material'; // MUI TextField
+import dayjs from 'dayjs';
 
 // Modal that appears when a new item needs to be added
 function ModalForm(props) {
@@ -34,18 +38,26 @@ function ModalForm(props) {
 function FillItems({sendData}) {    // receives the onChage prop
     const [validated, setValidated] = useState(false)
     const [isAmountValid, setIsAmountValid] = useState(true);
+    const [dateSelected, setDateSelected] = useState(dayjs());
 
     const [formData, setFormData] = useState({
         description: "",
         amount: "",
         module: "",
         category: "",
+        date: "",
     })
 
     const handleInputChange = (e) => {
         // updates the form data whenever values in the input changes.
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleDateChange = (newValue) => {
+        // updates the form data, for date, whenever values in the input changes.
+        setDateSelected(newValue);
+        setFormData({...formData, date: newValue.format('DD-MM-YYYY')});
     };
 
     const handleAmountChange = (e) => {
@@ -89,6 +101,7 @@ function FillItems({sendData}) {    // receives the onChage prop
         console.log(`amount: ${formData.amount}`);
         console.log(`category: ${formData.category}`);
         console.log(`module: ${formData.module}`);
+        console.log(`date: ${formData.date}`);
 
         // sent form data to table.json
         try {
@@ -143,6 +156,20 @@ function FillItems({sendData}) {    // receives the onChage prop
                     CATEGORIES.map((category, index) => <option key={index} value={category}>{category}</option>)
                 }
             </Form.Select>
+
+            <Form.Group controlId="formDateAdded" className="mb-3" style={{marginTop:'20px'}}>
+                {/* MUI DatePicker */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        label="Select Date"
+                        value={dateSelected}
+                        onChange={handleDateChange}
+                        renderInput={(params) => (
+                            <TextField {...params} fullWidth />
+                        )}
+                    />
+                </LocalizationProvider>
+            </Form.Group>
 
             <Button variant='dark' type='submit' style={{marginTop:'15px', marginBottom:'15px'}}>Confirm</Button>
         </Form>

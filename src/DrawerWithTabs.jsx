@@ -24,8 +24,8 @@ const DrawerWithTabs = () => {
                 <Box sx={{ width: 250 }} role="presentation">
                 <List>
                     {
-                        pages.map((page) => (
-                        <ListItem disablePadding>
+                        pages.map((page, index) => (
+                        <ListItem disablePadding key={index}>
                             <ListItemButton onClick={() => handleNavigation('/'.concat(page.toLowerCase()))}>
                                 <ListItemText primary={page} />
                             </ListItemButton>

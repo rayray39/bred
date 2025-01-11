@@ -21,6 +21,7 @@ function MainCells({ newlyAddedData, displayForm }) {
         { field: 'description', headerName: 'Description', headerAlign: 'center', flex: 3},
         { field: 'category', headerName: 'Category', headerAlign: 'center', flex: 2},
         { field: 'module', headerName: 'Module', headerAlign: 'center', flex: 2},
+        { field: 'date', headerName: 'Date', headerAlign: 'center', flex: 1},
         { field: 'amount', headerName: 'Amount', headerAlign: 'center', flex: 1}
     ]
 
