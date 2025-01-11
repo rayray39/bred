@@ -9,12 +9,12 @@ function App() {
 
     return (
         <Router>
-        <DrawerWithTabs />
-        <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/charts" element={<Charts />} />
-        </Routes>
+            <DrawerWithTabs />
+            <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/charts" element={<Charts />} />
+            </Routes>
         </Router>
     )
 }
