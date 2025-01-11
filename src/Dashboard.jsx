@@ -3,6 +3,7 @@ import './App.css'
 import ModalForm from './ModalForm'
 import MainCells from './MainCells';
 
+// main dashboard that displays the table data.
 function Dashboard() {
     const [showForm, setShowForm] = useState(false);    // show modal
     const [formData, setFormData] = useState({});       // data from the form (FillItems)
