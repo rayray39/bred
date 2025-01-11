@@ -21,7 +21,7 @@ function App() {
     return <>
         <ModalForm show={showForm} onConfirm={handleConfirm} onHide={() => setShowForm(false)}/>
 
-        <MainCells data={formData} displayForm={handleAddItem}/>
+        <MainCells newlyAddedData={formData} displayForm={handleAddItem}/>
     </>
 }
 

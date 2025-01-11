@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import Modules from "./Modules";
 import Categories from "./Categories";
 
-function MainCells(props) {
+function MainCells({ newlyAddedData, displayForm }) {
     const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
     const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)
 
@@ -52,22 +52,22 @@ function MainCells(props) {
 
     useEffect(() => {   // runs everytime props.data changes (receives new row data)
         // appending new rows to table data
-        if (props.data && Object.keys(props.data).length > 0) {     // only if data is non empty
+        if (newlyAddedData && Object.keys(newlyAddedData).length > 0) {     // only if data is non empty
             // include the id into the row of data
             const newRow = {
                 id: tableData.length + 1,
-                ...props.data,
+                ...newlyAddedData,
             };
 
             // append this row to the existing table data
             setOriginalTableData((prev) => [...prev, newRow]);
             setTableData((prev) => [...prev, newRow]);
             // add new row amount to total amount
-            setTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
-            setOriginalTotalAmount((prev) => Number((prev + parseFloat(props.data.amount)).toFixed(2)));
+            setTotalAmount((prev) => Number((prev + parseFloat(newlyAddedData.amount)).toFixed(2)));
+            setOriginalTotalAmount((prev) => Number((prev + parseFloat(newlyAddedData.amount)).toFixed(2)));
         }
 
-    }, [props.data])
+    }, [newlyAddedData])
 
     const handleSelectedModules = (selectedModules) => {
         // selectedModules is an array containing the modules selected eg. [Main Housing, Top Housing]
@@ -187,7 +187,7 @@ function MainCells(props) {
 
     const handleAddItem = () => {
         // displays the FillItems form from ModalForm
-        props.displayForm();
+        displayForm();
     }
 
     return <div>
