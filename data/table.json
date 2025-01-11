@@ -2,9 +2,25 @@
   {
     "id": 1,
     "description": "first item",
-    "amount": "3.00",
+    "amount": "2.00",
     "module": "Main Housing",
     "category": "Hardware",
-    "date": "2025-01-10T14:21:15.268Z"
+    "date": "08-01-2025"
+  },
+  {
+    "id": 2,
+    "description": "second item",
+    "amount": "2.20",
+    "module": "Top Housing",
+    "category": "Software",
+    "date": "01-01-2025"
+  },
+  {
+    "id": 3,
+    "description": "third item",
+    "amount": "0.30",
+    "module": "Bottom Housing",
+    "category": "Tools",
+    "date": "05-01-2025"
   }
 ]

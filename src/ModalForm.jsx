@@ -38,7 +38,7 @@ function ModalForm(props) {
 function FillItems({sendData}) {    // receives the onChage prop
     const [validated, setValidated] = useState(false)
     const [isAmountValid, setIsAmountValid] = useState(true);
-    const defaultDate = dayjs();
+    const [dateSelected, setDateSelected] = useState(dayjs());
 
     const [formData, setFormData] = useState({
         description: "",
@@ -56,7 +56,8 @@ function FillItems({sendData}) {    // receives the onChage prop
 
     const handleDateChange = (newValue) => {
         // updates the form data, for date, whenever values in the input changes.
-        setFormData({...formData, date: newValue});
+        setDateSelected(newValue);
+        setFormData({...formData, date: newValue.format('DD-MM-YYYY')});
     };
 
     const handleAmountChange = (e) => {
@@ -161,7 +162,7 @@ function FillItems({sendData}) {    // receives the onChage prop
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         label="Select Date"
-                        value={defaultDate}
+                        value={dateSelected}
                         onChange={handleDateChange}
                         renderInput={(params) => (
                             <TextField {...params} fullWidth />
