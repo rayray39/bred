@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Drawer, Box, List, ListItem, ListItemButton, ListItemText, Button } from '@mui/material';
+import { Drawer, Box, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Button } from '@mui/material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import DataUsageIcon from '@mui/icons-material/DataUsage';
 
 // returns the button that opens the drawer component for navigation
 const DrawerWithTabs = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const pages = ['Dashboard', 'Charts'];
+    const icons = [<DashboardIcon/>, <DataUsageIcon/>];
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -27,6 +30,9 @@ const DrawerWithTabs = () => {
                         pages.map((page, index) => (
                         <ListItem disablePadding key={index}>
                             <ListItemButton onClick={() => handleNavigation('/'.concat(page.toLowerCase()))}>
+                                <ListItemIcon>
+                                    {icons[index]}
+                                </ListItemIcon>
                                 <ListItemText primary={page} />
                             </ListItemButton>
                         </ListItem>
