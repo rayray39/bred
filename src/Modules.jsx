@@ -20,6 +20,7 @@ const MenuProps = {
   },
 };
 
+// provides the select (dropdown) for Modules
 export default function Modules({handleSelectedModules}) {
   const theme = useTheme();
   const [moduleName, setModuleName] = React.useState([]);

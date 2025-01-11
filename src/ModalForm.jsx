@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { MODULES, CATEGORIES } from './Constants';
 
+// Modal that appears when a new item needs to be added
 function ModalForm(props) {
     // use react-bootstrap's modal
 
@@ -29,8 +30,8 @@ function ModalForm(props) {
     </>
 }
 
+// form within the modal to fill up information about item added.
 function FillItems({sendData}) {    // receives the onChage prop
-    // form within the modal to fill up information about item added.
     const [validated, setValidated] = useState(false)
     const [isAmountValid, setIsAmountValid] = useState(true);
 

@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import Modules from "./Modules";
 import Categories from "./Categories";
 
+// displays main table data using Material UI's DataGrid
 function MainCells({ newlyAddedData, displayForm }) {
     const [originalTableData, setOriginalTableData] = useState([]);     // original unfiltered data
     const [tableData, setTableData] = useState([]);                     // data that will be operated on (eg. filtering)

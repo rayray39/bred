@@ -20,6 +20,7 @@ const MenuProps = {
   },
 };
 
+// provides the select (dropdown) for Categories
 export default function Categories({handleSelectedCategories}) {
   const theme = useTheme();
   const [categoryName, setCategoryName] = React.useState([]);
