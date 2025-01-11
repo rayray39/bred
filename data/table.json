@@ -1,37 +1,10 @@
 [
   {
     "id": 1,
-    "description": "little items",
-    "amount": "10.00",
-    "module": "Main Housing",
-    "category": "Hardware"
-  },
-  {
-    "id": 2,
-    "description": "small items",
+    "description": "first item",
     "amount": "3.00",
-    "module": "Top Housing",
-    "category": "Software"
-  },
-  {
-    "id": 3,
-    "description": "something else",
-    "amount": "0.60",
     "module": "Main Housing",
-    "category": "Software"
-  },
-  {
-    "id": 4,
-    "description": "nothing else",
-    "amount": "1.10",
-    "module": "Bottom Housing",
-    "category": "Tools"
-  },
-  {
-    "id": 5,
-    "description": "big items",
-    "amount": "0.03",
-    "module": "Bottom Housing",
-    "category": "Hardware"
+    "category": "Hardware",
+    "date": "2025-01-10T14:21:15.268Z"
   }
 ]

@@ -54,9 +54,8 @@ function FillItems({sendData}) {    // receives the onChage prop
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleDateChange = (e) => {
+    const handleDateChange = (newValue) => {
         // updates the form data, for date, whenever values in the input changes.
-        const { newValue } = e.target;
         setFormData({...formData, date: newValue});
     };
 
@@ -157,8 +156,8 @@ function FillItems({sendData}) {    // receives the onChage prop
                 }
             </Form.Select>
 
-            {/* MUI DatePicker */}
             <Form.Group controlId="formDateAdded" className="mb-3" style={{marginTop:'20px'}}>
+                {/* MUI DatePicker */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         label="Select Date"
