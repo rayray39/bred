@@ -1,28 +1,22 @@
-import { useState } from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
-import ModalForm from './ModalForm'
-import { Button } from 'react-bootstrap';
-import MainCells from './MainCells';
+import DrawerWithTabs from './DrawerWithTabs'
+import Dashboard from './Dashboard';
+import Charts from './Charts';
 
 function App() {
-    const [showForm, setShowForm] = useState(false);    // show modal
-    const [formData, setFormData] = useState({});       // data from the form (FillItems)
 
-    const handleConfirm = (data) => {
-        // this is passed into FillItems, through ModalForm
-        setFormData(data);      // receives the data from FillItems.
-        setShowForm(false);     // hides the Modal
-    }
-
-    const handleAddItem = () => {
-        setShowForm(true);
-    }
-
-    return <>
-        <ModalForm show={showForm} onConfirm={handleConfirm} onHide={() => setShowForm(false)}/>
-
-        <MainCells data={formData} displayForm={handleAddItem}/>
-    </>
+    return (
+        <Router>
+            <DrawerWithTabs />
+            <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/charts" element={<Charts />} />
+            </Routes>
+        </Router>
+    )
 }
 
 export default App
