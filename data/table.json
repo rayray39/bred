@@ -38,5 +38,13 @@
     "module": "Top Housing",
     "category": "Software",
     "date": "06-01-2025"
+  },
+  {
+    "id": 6,
+    "description": "many items",
+    "amount": "1.30",
+    "module": "Bottom Housing",
+    "category": "Hardware",
+    "date": "10-01-2025"
   }
 ]

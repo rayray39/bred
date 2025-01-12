@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import Stack from '@mui/material/Stack';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 // Register necessary Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -16,7 +19,34 @@ function Charts() {
     const [moduleLabels, setModuleLabels] = useState([]);               // module labels
     const [moduleValues, setModuleValues] = useState([]);               // module values
 
+    const [chartSelect, setChartSelect] = useState('categories');       // toggle button
+
+    const pieChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 16, // Adjust legend label font size
+                    },
+                    color: 'white', // Legend label color (optional)
+                },
+            },
+            tooltip: {
+                bodyFont: {
+                    size: 18, // Tooltip text font size
+                },
+                titleFont: {
+                    size: 20, // Tooltip title font size
+                },
+                padding: 12, // Add padding inside the tooltip
+                boxPadding: 10, // Adjust padding between the tooltip and content
+            },
+        },
+    };
+
     useEffect(() => {
+        // fetch data for category total and module total
         const fetchTableDataType = async () => {
             try {
                 // Parallel fetches
@@ -58,55 +88,67 @@ function Charts() {
     }, [])
 
     const handleCategory = () => {
+        // used for debugging fetched data from server
         console.log(categoryLabels);
         console.log(categoryValues);
     }
 
     const handleModule = () => {
+        // used for debugging fetched data from server
         console.log(moduleLabels);
         console.log(moduleValues);
     }
 
     const PieForCategories = () => {
+        // pie chart for categories
         const chartData = {
             labels: categoryLabels,
             datasets: [
               {
-                label: "Total Amount (Categories)",
+                label: "Total Amount",
                 data: categoryValues,
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
               },
             ],
           };
         
-          return <Pie data={chartData} />;
+          return <Pie data={chartData} options={pieChartOptions} />;
     }
 
     const PieForModules = () => {
+        // pie chart for modules
         const chartData = {
             labels: moduleLabels,
             datasets: [
               {
-                label: "Total Amount (Modules)",
+                label: "Total Amount",
                 data: moduleValues,
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
               },
             ],
           };
         
-          return <Pie data={chartData} />;
+          return <Pie data={chartData} options={pieChartOptions} />;
+    }
+
+    const handleToggleChange = (event, newChartSelect) => {
+        setChartSelect(newChartSelect);
     }
 
     return <div style={{color: 'white'}}>
-        <h1>This is the charts page</h1>
+        <Stack spacing={2} sx={{ alignItems: 'center' }}>
+            <ToggleButtonGroup color='primary' value={chartSelect} onChange={handleToggleChange} exclusive sx={{backgroundColor: 'white'}}>
+                <ToggleButton value='categories'>
+                    {'Categories'}
+                </ToggleButton>
+                <ToggleButton value='modules'>
+                    {'Modules'}
+                </ToggleButton>
+            </ToggleButtonGroup>
+        </Stack>
 
-        <button onClick={handleCategory}>category</button>
-
-        <button onClick={handleModule}>module</button>
-
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:'20px', gap:'100px', height:'500px'}}>
-            <PieForCategories />
-            <PieForModules />
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:'30px', height:'560px'}}>
+            {chartSelect === 'categories' ? <PieForCategories /> : <PieForModules />}
         </div>
     </div>
 }
