@@ -67,12 +67,47 @@ function Charts() {
         console.log(moduleValues);
     }
 
+    const PieForCategories = () => {
+        const chartData = {
+            labels: categoryLabels,
+            datasets: [
+              {
+                label: "Total Amount (Categories)",
+                data: categoryValues,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+              },
+            ],
+          };
+        
+          return <Pie data={chartData} />;
+    }
+
+    const PieForModules = () => {
+        const chartData = {
+            labels: moduleLabels,
+            datasets: [
+              {
+                label: "Total Amount (Modules)",
+                data: moduleValues,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+              },
+            ],
+          };
+        
+          return <Pie data={chartData} />;
+    }
+
     return <div style={{color: 'white'}}>
         <h1>This is the charts page</h1>
 
         <button onClick={handleCategory}>category</button>
 
         <button onClick={handleModule}>module</button>
+
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:'20px', gap:'100px', height:'500px'}}>
+            <PieForCategories />
+            <PieForModules />
+        </div>
     </div>
 }
 
