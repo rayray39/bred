@@ -98,6 +98,32 @@ app.delete('/delete-row-data', (req, res) => {
 })
 
 
+app.get('/table-data/:type', (req, res) => {
+    const {type} = req.params;
+    if (!type) {
+        return res.status(400).json({ error: 'Missing type specified.' });
+    }
+    if (type !== 'category' && type !== 'module') {
+        return res.status(400).json({ error: 'Unknown specified type.' });
+    }
+
+    // Group and sum amounts by category or module
+    // if type = category: compute the total amount for each category and store in a list (['Hardware': X, 'Software': Y, 'Tool': Z])
+    // if type = module: // compute the total amount for each module and store in a list (['Main Housing': X, 'Top Housing': Y, 'Bottom Housing': Z])
+    const result = {};
+    const tableData = readTableData();
+    tableData.forEach((item) => {
+        const key = item[type];     // key = Hardware, Software or Tools OR Main, Top or Bottom
+        if (!result[key]) {
+            result[key] = 0; // Initialize the value to 0 if the key is not already in result
+        }
+        result[key] += Number(parseFloat(item.amount)); // Add the item's amount (converted to a number) to the total for the key
+    });
+
+    return res.status(200).json({ message: `Successfully sum amount by ${type}`, result: result});
+})
+
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
