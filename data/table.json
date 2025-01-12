@@ -22,5 +22,29 @@
     "module": "Bottom Housing",
     "category": "Tools",
     "date": "05-01-2025"
+  },
+  {
+    "id": 4,
+    "description": "some items",
+    "amount": "9.90",
+    "module": "Main Housing",
+    "category": "Tools",
+    "date": "09-01-2025"
+  },
+  {
+    "id": 5,
+    "description": "many items",
+    "amount": "0.80",
+    "module": "Top Housing",
+    "category": "Software",
+    "date": "06-01-2025"
+  },
+  {
+    "id": 6,
+    "description": "many items",
+    "amount": "1.30",
+    "module": "Bottom Housing",
+    "category": "Hardware",
+    "date": "10-01-2025"
   }
 ]
