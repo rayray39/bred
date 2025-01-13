@@ -17,14 +17,6 @@
   },
   {
     "id": 3,
-    "description": "third item",
-    "amount": "0.30",
-    "module": "Bottom Housing",
-    "category": "Tools",
-    "date": "05-01-2025"
-  },
-  {
-    "id": 4,
     "description": "some items",
     "amount": "9.90",
     "module": "Main Housing",
@@ -32,7 +24,7 @@
     "date": "09-01-2025"
   },
   {
-    "id": 5,
+    "id": 4,
     "description": "many items",
     "amount": "0.80",
     "module": "Top Housing",
@@ -40,11 +32,19 @@
     "date": "06-01-2025"
   },
   {
-    "id": 6,
+    "id": 5,
     "description": "very little items",
     "amount": "1.30",
     "module": "Bottom Housing",
     "category": "Hardware",
     "date": "10-01-2025"
+  },
+  {
+    "id": 6,
+    "description": "new item",
+    "amount": "1.00",
+    "module": "Top Housing",
+    "category": "Hardware",
+    "date": "09-01-2025"
   }
 ]
