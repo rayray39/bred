@@ -16,18 +16,28 @@ Bred is the ultimate financial management platform for your organization, design
 Add a new row of data to the table in the main dashboard.
 - to add a new row of data, click on the `Add Item` button.
 - a modal form will pop up requiring you to fill in details about the new row of data.
-- the details include the description, amount, category, module, and date added.
+- the details include the description, amount, category, module, and date added. (all fields are required)
 - the amount only accepts values up to 2 decimal places, some examples of valid inputs include: 1.0, 2.00, .03, 3
 
 ![new item form](new_item.png "new item form")
 
 ## Delete Row(s)  
+Remove a row of data from the table in the main dashboard.  
 
 ## Filter By Modules  
+Filter the table of data by specific module(s).  
 
-## Filter By Categories
+## Filter By Categories  
+Filter the table of data by specific category(s).  
 
 ## View Chart Analysis  
+View the piecharts that represent the graphical visualisation of the table data.  
+
+## Add New Categories (COMING SOON)  
+Add new categories to the existing list of categories.
+
+## Add New Modules (COMING SOON)  
+Add new modules to the existing list of modules.
 
 ## Additional Notes  
 Bred was started as a side project to learn more about using React and Express to build dynamic and interactive webpages. It is by no means a commercial product and should not be used for any commercial purposes (if you do make money however, rmb to buy me a cup of coffee!).
