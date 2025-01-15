@@ -23,15 +23,41 @@ Add a new row of data to the table in the main dashboard.
 
 ## Delete Row(s)  
 Remove a row of data from the table in the main dashboard.  
+- to remove a row of data, select the row that you want to delete and click on the `Delete Item(s)` button.
+- to remove multiple rows of data, select all the rows that you want to delete, then click on the `Delete Item(s)` button.
+- after the selected row(s) have been deleted, the indices of the remaining items will be updated.
+
+![select items for delete](delete.png "delete items")
 
 ## Filter By Modules  
-Filter the table of data by specific module(s).  
+Filter the table of data by specific module(s).
+- click on the `Module` button to trigger the dropdown menu. 
+- from the dropdown menu, select the module(s) that you would like to filter.
+- the table will update with data belonging to the module(s) selected. 
+- the total amount will also be updated, with the total amount of the items belonging to the module(s) selected.  
+
+![filter module](filter_module.png "filter module")
 
 ## Filter By Categories  
 Filter the table of data by specific category(s).  
+- click on the `Category` button to trigger the dropdown menu. 
+- from the dropdown menu, select the category(s) that you would like to filter.
+- the table will update with data belonging to the category(s) selected. 
+- the total amount will also be updated, with the total amount of the items belonging to the category(s) selected.  
+
+![filter category](filter_category.png "filter category")
 
 ## View Chart Analysis  
 View the piecharts that represent the graphical visualisation of the table data.  
+- click on the `Menu` button on the top right corner to open the menu.
+- the menu should display `Dashboard`, which is the default page and the page where the table data lies, and `Charts`, which displays the piecharts for the categories and modules.
+- to view the piechart for the categories, click on  the toggle button to toggle to `Categories`.
+- to view the piechart for the modules, click on the toggle button to toggle to `Modules`.
+
+<div style='display:flex'>
+    <img src="category_chart.png" width='45%' />
+    <img src="module_chart.png" width='40%'/>
+</div>
 
 ## Add New Categories (COMING SOON)  
 Add new categories to the existing list of categories.
