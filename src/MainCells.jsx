@@ -192,15 +192,31 @@ function MainCells({ newlyAddedData, displayForm }) {
         displayForm();
     }
 
+    const handleAddNewModule = () => {
+        // button handler for adding new module
+        console.log('adding new module');
+    }
+
+    const handleAddNewCategory = () => {
+        // button handler for adding new category
+        console.log('adding new category');
+    }
+
     return <div>
-        <div style={{display: 'flex', flexDirection: 'column', width:'200px'}}>
-            <Button variant="light" style={{marginBottom:'16px'}} onClick={handleAddItem} disabled={dataIsFiltered}>Add Item</Button>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+            <Button variant="light" style={{marginBottom:'16px', width:'200px'}} onClick={handleAddItem} disabled={dataIsFiltered}>Add Item</Button>
 
-            <Button variant="light" onClick={handleDeleteRow} disabled={dataIsFiltered}>Delete Item(s)</Button>
+            <Button variant="light" style={{width:'200px'}} onClick={handleDeleteRow} disabled={dataIsFiltered}>Delete Item(s)</Button>
 
-            <Modules handleSelectedModules={handleSelectedModules}/>
+            <div style={{display:'flex'}}>
+                <Modules handleSelectedModules={handleSelectedModules}/>
+                <Button variant="light" style={{width:'200px', marginLeft:'16px', height:'40px', marginTop:'16px'}} onClick={handleAddNewModule} disabled={dataIsFiltered} >Add Module</Button>
+            </div>
 
-            <Categories handleSelectedCategories={handleSelectedCategories} />
+            <div style={{display:'flex'}}>
+                <Categories handleSelectedCategories={handleSelectedCategories} />
+                <Button variant="light" style={{width:'200px', marginLeft:'16px', height:'40px', marginTop:'16px'}} onClick={handleAddNewCategory} disabled={dataIsFiltered} >Add Category</Button>
+            </div>
         </div>
 
         <div style={{marginTop:"40px", width: '100%'}}>
