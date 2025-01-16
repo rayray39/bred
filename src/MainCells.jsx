@@ -3,6 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "react-bootstrap";
 import Modules from "./Modules";
 import Categories from "./Categories";
+import NewModuleModal from "./NewModuleModal";
+import NewCategoryModal from "./NewCategoryModal";
 
 // displays main table data using Material UI's DataGrid
 function MainCells({ newlyAddedData, displayForm }) {
@@ -14,6 +16,9 @@ function MainCells({ newlyAddedData, displayForm }) {
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [dataIsFiltered, setDataIsFiltered] = useState(false);
+
+    const [newModuleModalShow, setNewModuleModalShow] = useState(false);        // opens the modal for adding new module
+    const [newCategoryModalShow, setNewCategoryModalShow] = useState(false);    // opens the modal for adding new category
 
     // column headers for data grid
     const tableColumnHeaders = [
@@ -195,11 +200,13 @@ function MainCells({ newlyAddedData, displayForm }) {
     const handleAddNewModule = () => {
         // button handler for adding new module
         console.log('adding new module');
+        setNewModuleModalShow(true);
     }
 
     const handleAddNewCategory = () => {
         // button handler for adding new category
         console.log('adding new category');
+        setNewCategoryModalShow(true);
     }
 
     return <div>
@@ -211,11 +218,15 @@ function MainCells({ newlyAddedData, displayForm }) {
             <div style={{display:'flex'}}>
                 <Modules handleSelectedModules={handleSelectedModules}/>
                 <Button variant="light" style={{width:'200px', marginLeft:'16px', height:'40px', marginTop:'16px'}} onClick={handleAddNewModule} disabled={dataIsFiltered} >Add Module</Button>
+
+                <NewModuleModal show={newModuleModalShow} onHide={() => setNewModuleModalShow(false)} />
             </div>
 
             <div style={{display:'flex'}}>
                 <Categories handleSelectedCategories={handleSelectedCategories} />
                 <Button variant="light" style={{width:'200px', marginLeft:'16px', height:'40px', marginTop:'16px'}} onClick={handleAddNewCategory} disabled={dataIsFiltered} >Add Category</Button>
+
+                <NewCategoryModal show={newCategoryModalShow} onHide={() => setNewCategoryModalShow(false)} />
             </div>
         </div>
 
