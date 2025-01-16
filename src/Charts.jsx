@@ -14,10 +14,12 @@ function Charts() {
     const [categoryTableData, setCategoryTableData] = useState([]);     // table data for categories
     const [categoryLabels, setCategoryLabels] = useState([]);           // category labels
     const [categoryValues, setCategoryValues] = useState([]);           // category values
+    const [numberOfCategories, setNumberOfCategories] = useState(0);    // number of categories
 
     const [moduleTableData, setModuleTableData] = useState([]);         // table data for modules
     const [moduleLabels, setModuleLabels] = useState([]);               // module labels
     const [moduleValues, setModuleValues] = useState([]);               // module values
+    const [numberOfModules, setNumberOfModules] = useState(0);          // number of modules
 
     const [chartSelect, setChartSelect] = useState('categories');       // toggle button
 
@@ -76,9 +78,11 @@ function Charts() {
 
                 setCategoryLabels(categoryEntries.map(([key]) => key));      // ["Hardware", "Software"]
                 setCategoryValues(categoryEntries.map(([, value]) => Number(value.toFixed(2)))); // [2, 2.2]
+                setNumberOfCategories(categoryEntries.length);
 
                 setModuleLabels(moduleEntries.map(([key]) => key));          // ["Main Housing", "Top Housing"]
                 setModuleValues(moduleEntries.map(([, value]) => Number(value.toFixed(2))));   // [2, 2.2]
+                setNumberOfModules(moduleEntries.length);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -99,6 +103,28 @@ function Charts() {
         console.log(moduleValues);
     }
 
+    const getCategoriesBgColors = () => {
+        // returns a list of random colors for the category's piechart
+        const colors = [];
+        for (let i = 0; i < numberOfCategories; i++) {
+            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+            colors.push(randomColor);
+        }
+
+        return colors;
+    }
+
+    const getModulesBgColors = () => {
+        // returns a list of random colors for the module's piechart
+        const colors = [];
+        for (let i = 0; i < numberOfModules; i++) {
+            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+            colors.push(randomColor);
+        }
+
+        return colors;
+    }
+
     const PieForCategories = () => {
         // pie chart for categories
         const chartData = {
@@ -107,7 +133,7 @@ function Charts() {
               {
                 label: "Total Amount",
                 data: categoryValues,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+                backgroundColor: getCategoriesBgColors(),
               },
             ],
           };
@@ -123,7 +149,7 @@ function Charts() {
               {
                 label: "Total Amount",
                 data: moduleValues,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+                backgroundColor: getModulesBgColors(),
               },
             ],
           };
