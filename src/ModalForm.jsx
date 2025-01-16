@@ -2,11 +2,12 @@ import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
-import { MODULES, CATEGORIES } from './Constants';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'; // MUI DatePicker
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField } from '@mui/material'; // MUI TextField
 import dayjs from 'dayjs';
+import categories from '../data/categories.json';
+import modules from '../data/modules.json';
 
 // Modal that appears when a new item needs to be added
 function ModalForm(props) {
@@ -146,14 +147,14 @@ function FillItems({sendData}) {    // receives the onChage prop
             <Form.Select style={{marginTop:'15px'}} aria-label="select module" name='module' onChange={handleInputChange} required >
                 <option value=''>Select module</option>
                 {
-                    MODULES.map((module, index) => <option key={index} value={module}>{module}</option>)
+                    modules.map((module, index) => <option key={index} value={module}>{module}</option>)
                 }
             </Form.Select>
 
             <Form.Select aria-label="select category" style={{marginTop:'15px'}} name='category' onChange={handleInputChange} required >
                 <option value=''>Select category</option>
                 {
-                    CATEGORIES.map((category, index) => <option key={index} value={category}>{category}</option>)
+                    categories.map((category, index) => <option key={index} value={category}>{category}</option>)
                 }
             </Form.Select>
 
