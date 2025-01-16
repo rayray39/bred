@@ -15,7 +15,7 @@ function NewModuleModal(props) {
         setNewModule(value);
     }
 
-    const handleConfirm = (e) => {
+    const handleConfirm = async (e) => {
         // when form is submitted
         e.preventDefault();
         const form = formRef.current;
@@ -27,7 +27,26 @@ function NewModuleModal(props) {
 
         props.onHide();
         console.log(`adding new module: ${newModule}`);
-        modules.push(newModule);
+
+        // make a post request to add new module to modules.json
+        try {
+            const response = await fetch('http://localhost:5000/add-new-module', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({newModule: newModule})
+            })
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.log(data.error);
+                alert(data.error);
+                return;
+            }
+
+            console.log(data.message);
+        } catch (error) {
+            console.error(`Error in adding new module: ${error}`);
+        }
     }
 
     return (

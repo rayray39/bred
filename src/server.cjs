@@ -18,6 +18,10 @@ app.use(express.json())
 // Path to the JSON file
 const tableFilePath = path.join(__dirname, '../data/table.json');
 
+// Path to modules.json
+const moduleFilePath = path.join(__dirname, '../data/modules.json');
+
+
 // read data from json file.
 const readTableData = () => {
     try {
@@ -121,6 +125,27 @@ app.get('/table-data/:type', (req, res) => {
     });
 
     return res.status(200).json({ message: `Successfully sum amount by ${type}`, result: result});
+})
+
+// adds new module to modules.json
+app.post('/add-new-module', (req, res) => {
+    const newModule = req.body.newModule;
+    console.log("server.js new module: "+newModule)
+
+    if (!newModule) {
+        return res.status(400).json({ error: 'New module to add is missing.' });
+    }
+
+    try {
+        const data = fs.readFileSync(moduleFilePath, 'utf-8');
+        const existingModules = JSON.parse(data);
+        existingModules.push(newModule);
+
+        fs.writeFileSync(moduleFilePath, JSON.stringify(existingModules, null, 2), 'utf-8');
+    } catch (error) {
+        console.error('Error in adding to modules.json file:', error);
+        res.status(500).json({ error: 'Failed to add new module' }); // Handle errors
+    }
 })
 
 
