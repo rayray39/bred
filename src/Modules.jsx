@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { ListItemText } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
-import { MODULES } from './Constants';
+import modules from '../data/modules.json';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -24,11 +24,11 @@ const MenuProps = {
 export default function Modules({handleSelectedModules}) {
     const theme = useTheme();
     const [moduleName, setModuleName] = React.useState([]);
-    const [allModules, setAllModules] = React.useState(MODULES);  // list of all modules
+    const [allModules, setAllModules] = React.useState([]);  // list of all modules
 
     React.useEffect(() => {
-        setAllModules(MODULES);
-    }, [MODULES])
+        setAllModules(modules);
+    }, [])
 
     const handleChange = (event) => {
         const value = event.target.value;   // value is always an array
