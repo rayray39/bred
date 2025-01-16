@@ -28,7 +28,7 @@ export default function Categories({handleSelectedCategories}) {
 
     React.useEffect(() => {
         setAllCategories(categories);
-    }, [])
+    }, [categories])
 
     const handleChange = (event) => {
         const value = event.target.value;

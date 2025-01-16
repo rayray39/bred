@@ -2,6 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useRef, useState } from 'react';
+import modules from '../data/modules.json';
 
 // modal for adding new module, will open when 'Add Module' button in MainCells is clicked
 function NewModuleModal(props) {
@@ -26,6 +27,7 @@ function NewModuleModal(props) {
 
         props.onHide();
         console.log(`adding new module: ${newModule}`);
+        modules.push(newModule);
     }
 
     return (

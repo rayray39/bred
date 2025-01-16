@@ -28,7 +28,7 @@ export default function Modules({handleSelectedModules}) {
 
     React.useEffect(() => {
         setAllModules(modules);
-    }, [])
+    }, [modules])
 
     const handleChange = (event) => {
         const value = event.target.value;   // value is always an array
