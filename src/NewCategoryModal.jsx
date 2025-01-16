@@ -14,7 +14,7 @@ function NewCategoryModal(props) {
         setNewCategory(value);
     }
 
-    const handleConfirm = (e) => {
+    const handleConfirm = async (e) => {
         // when form is submitted
         e.preventDefault();
         const form = formRef.current;
@@ -26,6 +26,25 @@ function NewCategoryModal(props) {
 
         props.onHide();
         console.log(`adding new category: ${newCategory}`);
+
+        try {
+            const response = await fetch('http://localhost:5000/add-new-category', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({newCategory: newCategory})
+            })
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.log(data.error);
+                alert(data.error);
+                return;
+            }
+
+            console.log(data.message);
+        } catch (error) {
+            console.error(`Error in adding new category: ${error}`)
+        }
     }
 
     return (

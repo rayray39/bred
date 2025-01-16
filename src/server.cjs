@@ -21,6 +21,9 @@ const tableFilePath = path.join(__dirname, '../data/table.json');
 // Path to modules.json
 const moduleFilePath = path.join(__dirname, '../data/modules.json');
 
+// Path to categories.json
+const categoryFilePath = path.join(__dirname, '../data/categories.json');
+
 
 // read data from json file.
 const readTableData = () => {
@@ -130,7 +133,6 @@ app.get('/table-data/:type', (req, res) => {
 // adds new module to modules.json
 app.post('/add-new-module', (req, res) => {
     const newModule = req.body.newModule;
-    console.log("server.js new module: "+newModule)
 
     if (!newModule) {
         return res.status(400).json({ error: 'New module to add is missing.' });
@@ -145,6 +147,26 @@ app.post('/add-new-module', (req, res) => {
     } catch (error) {
         console.error('Error in adding to modules.json file:', error);
         res.status(500).json({ error: 'Failed to add new module' }); // Handle errors
+    }
+})
+
+// adds new category to category.json
+app.post('/add-new-category', (req, res) => {
+    const newCategory = req.body.newCategory;
+
+    if (!newCategory) {
+        return res.status(400).json({ error: 'New category to add is missing.' });
+    }
+
+    try {
+        const data = fs.readFileSync(categoryFilePath, 'utf-8');
+        const existingCategories = JSON.parse(data);
+        existingCategories.push(newCategory);
+
+        fs.writeFileSync(categoryFilePath, JSON.stringify(existingCategories, null, 2), 'utf-8');
+    } catch (error) {
+        console.error('Error in adding to categories.json file:', error);
+        res.status(500).json({ error: 'Failed to add new category' }); // Handle errors
     }
 })
 
