@@ -9,8 +9,8 @@ Bred is the ultimate financial management platform for your organization, design
 3. filter data by modules.
 4. filter data by categories.
 5. view piecharts.
-6. add new categories. (COMING SOON!)
-7. add new modules. (COMING SOON!)
+6. add new categories.
+7. add new modules.
 
 ## Add New Row  
 Add a new row of data to the table in the main dashboard.
