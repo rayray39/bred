@@ -63,12 +63,17 @@ View the piecharts that represent the graphical visualisation of the table data.
 Add new categories to the existing list of categories.  
 - to add a new category to the existing list of categories, click on the `Add Category` button.
 - a modal will pop up and you will be required to fill in the name of the new category.
+- click on `Confirm` to save the new category to the existing list.
 
 ![add new category](add_category.png "add category")
 
 ## Add New Modules   
 Add new modules to the existing list of modules.  
+- to add a new module to the existing list of modules, click on the `Add Module` button.
+- a modal will pop up and you will be required to fill in the name of the new module.  
+- click on `Confirm` to save the new module to the existing list.
 
+![add new module](add_module.png "add module")
 
 ## Additional Notes  
 Bred was started as a side project to learn more about using React and Express to build dynamic and interactive webpages. It is by no means a commercial product and should not be used for any commercial purposes (if you do make money however, rmb to buy me a cup of coffee!).
