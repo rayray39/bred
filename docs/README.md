@@ -59,11 +59,16 @@ View the piecharts that represent the graphical visualisation of the table data.
     <img src="module_chart.png" width='40%'/>
 </div>
 
-## Add New Categories (COMING SOON)  
-Add new categories to the existing list of categories.
+## Add New Categories  
+Add new categories to the existing list of categories.  
+- to add a new category to the existing list of categories, click on the `Add Category` button.
+- a modal will pop up and you will be required to fill in the name of the new category.
 
-## Add New Modules (COMING SOON)  
-Add new modules to the existing list of modules.
+![add new category](add_category.png "add category")
+
+## Add New Modules   
+Add new modules to the existing list of modules.  
+
 
 ## Additional Notes  
 Bred was started as a side project to learn more about using React and Express to build dynamic and interactive webpages. It is by no means a commercial product and should not be used for any commercial purposes (if you do make money however, rmb to buy me a cup of coffee!).
